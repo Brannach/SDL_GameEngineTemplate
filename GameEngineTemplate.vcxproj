@@ -82,7 +82,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2-2.0.20\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_ttf-2.0.18\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_mixer-2.0.4\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_image-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2-2.0.20\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_ttf-2.0.18\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_mixer-2.0.4\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_image-2.0.5\include;C:\Projects\GameEngineTemplate\Geometry;C:\Projects\GameEngineTemplate\Rendering;C:\Projects\GameEngineTemplate\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -140,18 +140,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EventHandler.cpp" />
+    <ClCompile Include="Core\Engine.cpp" />
+    <ClCompile Include="Core\EventHandler.cpp" />
     <ClCompile Include="GameEngineTemplate.cpp" />
-    <ClCompile Include="MainApplication.cpp" />
-    <ClCompile Include="TextureRenderer.cpp" />
+    <ClCompile Include="Core\MainApplication.cpp" />
+    <ClCompile Include="Rendering\TextureRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="EventHandler.h" />
-    <ClInclude Include="Geometry.h" />
-    <ClInclude Include="MainApplication.h" />
-    <ClInclude Include="TextureRenderer.h" />
+    <ClInclude Include="Core\Engine.h" />
+    <ClInclude Include="Core\EventHandler.h" />
+    <ClInclude Include="Geometry\Geometry.h" />
+    <ClInclude Include="Core\MainApplication.h" />
+    <ClInclude Include="Rendering\TextureRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
