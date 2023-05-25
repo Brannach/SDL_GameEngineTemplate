@@ -2,7 +2,6 @@
 #include "BouncingBall.h"
 
 Engine* Engine::EngineInstance = nullptr;
-BouncingBall* Ball;
 MainApplication* Engine::EngineMainApplication = nullptr;
 
 bool Engine::Init()
@@ -21,21 +20,34 @@ void Engine::Run()
 {
 	Init();
 	EventHandler* eventHandler = new EventHandler();
-	TextureRenderer::GetInstance()->Load("ball", "resources/actors/ball_marble.png", EngineMainApplication->MainWindowRenderer);
-	Ball = new BouncingBall(new Properties("ball", 400, 300, 32, 32, SDL_FLIP_NONE));
+	TextureRenderer::GetInstance()->Load("ball", "resources/actors/ball_marble.png", GetRenderer());
+	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 300, 24, 24, SDL_FLIP_NONE));
+	RenderActor.push_back(Ball);
 	while (IsEngineRunning)
 	{
 		eventHandler->Listen();
 		Update();
+		Render();
 	}
 }
 
 void Engine::Update()
 {
-	SDL_SetRenderDrawColor(EngineMainApplication->MainWindowRenderer, 35, 35, 35, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(EngineMainApplication->MainWindowRenderer);
-	Ball->Draw();
-	SDL_RenderPresent(EngineMainApplication->MainWindowRenderer);
+	for (Actor* anActor : RenderActor)
+	{
+		anActor->Update(1);
+	}
+}
+
+void Engine::Render()
+{
+	SDL_SetRenderDrawColor(GetRenderer(), 35, 35, 35, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(GetRenderer());
+	for (Actor* anActor : RenderActor)
+	{
+		anActor->Draw();
+	}
+	SDL_RenderPresent(GetRenderer());
 }
 
 void Engine::Quit()

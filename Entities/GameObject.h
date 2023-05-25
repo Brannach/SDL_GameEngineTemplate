@@ -46,6 +46,7 @@ public:
 
 	inline Point2d* GetOrigin() { return Origin; }
 	virtual void Draw() = 0;
+	virtual void DrawCollisorBox() = 0;
 	virtual void Update(float delta) = 0;
 	virtual void Clean() = 0;
 	inline Transform2d* GetTrasform() { return Transform; }

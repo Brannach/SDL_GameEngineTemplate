@@ -21,6 +21,7 @@ public:
 	virtual void Draw();
 	virtual void Update(float delta);
 	virtual void Clean();
+	virtual void DrawCollisorBox();
 	inline RigidBody* GetRigidBody() { return ActorRigidBody; }
 	inline Collider* GetCollider() { return ActorCollider; }
 
