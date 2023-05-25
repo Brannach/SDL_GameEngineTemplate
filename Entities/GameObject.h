@@ -36,7 +36,7 @@ public:
 		TextureId = pr->TextureId;
 		Width = pr->Width;
 		Height = pr->Height;
-		Flip = pr->Flip;
+		ObjectFlip = pr->Flip;
 		Transform = new Transform2d(pr->X, pr->Y);
 
 		Origin = new Point2d();
@@ -55,6 +55,6 @@ protected:
 	Transform2d* Transform;
 	int Width, Height;
 	string TextureId;
-	SDL_RendererFlip Flip;
+	SDL_RendererFlip ObjectFlip;
 };
 

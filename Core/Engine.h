@@ -21,11 +21,11 @@ public:
 	void Run();
 	void Update();
 	void Quit();
-	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
+	static inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
+	static inline MainApplication* GetMainApplication() { return EngineMainApplication; }
 
 private:
-	TextureRenderer* EngineTextureRenderer;
-	MainApplication* EngineMainApplication;
+	static MainApplication* EngineMainApplication;
 	static Engine* EngineInstance;
 	bool IsEngineRunning = false;
 };

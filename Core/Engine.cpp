@@ -3,6 +3,7 @@
 
 Engine* Engine::EngineInstance = nullptr;
 BouncingBall* Ball;
+MainApplication* Engine::EngineMainApplication = nullptr;
 
 bool Engine::Init()
 {
@@ -11,7 +12,7 @@ bool Engine::Init()
 		SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
 		return false;
 	}
-	
+	EngineMainApplication = new MainApplication("Engine Template");
 	IsEngineRunning = true;
 	return true;
 }
@@ -19,12 +20,9 @@ bool Engine::Init()
 void Engine::Run()
 {
 	Init();
-	EngineMainApplication = new MainApplication("Engine Template");
 	EventHandler* eventHandler = new EventHandler();
-	
-	EngineTextureRenderer = new TextureRenderer();
-	EngineTextureRenderer->Load("ball", "resources/actors/ball.jpg", EngineMainApplication->MainWindowRenderer);
-	Ball = new BouncingBall(new Properties("ball", 32, 32, 32, 32, SDL_FLIP_NONE));
+	TextureRenderer::GetInstance()->Load("ball", "resources/actors/ball_marble.png", EngineMainApplication->MainWindowRenderer);
+	Ball = new BouncingBall(new Properties("ball", 400, 300, 32, 32, SDL_FLIP_NONE));
 	while (IsEngineRunning)
 	{
 		eventHandler->Listen();
@@ -34,7 +32,7 @@ void Engine::Run()
 
 void Engine::Update()
 {
-	SDL_SetRenderDrawColor(EngineMainApplication->MainWindowRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(EngineMainApplication->MainWindowRenderer, 35, 35, 35, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(EngineMainApplication->MainWindowRenderer);
 	Ball->Draw();
 	SDL_RenderPresent(EngineMainApplication->MainWindowRenderer);
