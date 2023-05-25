@@ -27,9 +27,7 @@ bool MainApplication::DestroyApplication()
 
 bool MainApplication::ClearBackground()
 {
-	SDL_SetRenderDrawColor(MainWindowRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(MainWindowRenderer);
-	SDL_RenderPresent(MainWindowRenderer);
+
     return false;
 }
 

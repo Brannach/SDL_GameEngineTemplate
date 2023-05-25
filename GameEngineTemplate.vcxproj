@@ -82,7 +82,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2-2.0.20\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_ttf-2.0.18\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_mixer-2.0.4\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_image-2.0.5\include;C:\Projects\GameEngineTemplate\Geometry;C:\Projects\GameEngineTemplate\Rendering;C:\Projects\GameEngineTemplate\Core;C:\Projects\GameEngineTemplate\Entities;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2-2.0.20\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_ttf-2.0.18\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_mixer-2.0.4\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_image-2.0.5\include;C:\Projects\GameEngineTemplate\Geometry;C:\Projects\GameEngineTemplate\Rendering;C:\Projects\GameEngineTemplate\Core;C:\Projects\GameEngineTemplate\Entities;C:\Projects\GameEngineTemplate\Physics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entities\Actor.cpp" />
     <ClCompile Include="Entities\BouncingBall.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\EventHandler.cpp" />
@@ -149,7 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entities\BouncingBall.h" />
-	<ClInclude Include="Entities\Actor.h" />
+    <ClInclude Include="Entities\Actor.h" />
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\EventHandler.h" />
     <ClInclude Include="Geometry\Geometry2d.h" />

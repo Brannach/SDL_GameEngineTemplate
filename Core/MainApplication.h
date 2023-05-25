@@ -19,7 +19,6 @@ public:
 	bool SetWindowName(string windowName);
 	Dimension2d<int> MainWindowDimension;
 
-private:
 	SDL_Window* MainWindow;
 	SDL_Renderer* MainWindowRenderer;
 };

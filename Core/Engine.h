@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include "EventHandler.h"
 #include "MainApplication.h"
+#include "TextureRenderer.h"
 
 using namespace std;
 
@@ -20,8 +21,10 @@ public:
 	void Run();
 	void Update();
 	void Quit();
+	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 
 private:
+	TextureRenderer* EngineTextureRenderer;
 	MainApplication* EngineMainApplication;
 	static Engine* EngineInstance;
 	bool IsEngineRunning = false;

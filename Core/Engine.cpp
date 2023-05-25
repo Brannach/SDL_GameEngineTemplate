@@ -1,6 +1,8 @@
 #include "Engine.h"
+#include "BouncingBall.h"
 
 Engine* Engine::EngineInstance = nullptr;
+BouncingBall* Ball;
 
 bool Engine::Init()
 {
@@ -20,6 +22,9 @@ void Engine::Run()
 	EngineMainApplication = new MainApplication("Engine Template");
 	EventHandler* eventHandler = new EventHandler();
 	
+	EngineTextureRenderer = new TextureRenderer();
+	EngineTextureRenderer->Load("ball", "resources/actors/ball.jpg", EngineMainApplication->MainWindowRenderer);
+	Ball = new BouncingBall(new Properties("ball", 32, 32, 32, 32, SDL_FLIP_NONE));
 	while (IsEngineRunning)
 	{
 		eventHandler->Listen();
@@ -29,7 +34,10 @@ void Engine::Run()
 
 void Engine::Update()
 {
-	EngineMainApplication->ClearBackground();
+	SDL_SetRenderDrawColor(EngineMainApplication->MainWindowRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(EngineMainApplication->MainWindowRenderer);
+	Ball->Draw();
+	SDL_RenderPresent(EngineMainApplication->MainWindowRenderer);
 }
 
 void Engine::Quit()
