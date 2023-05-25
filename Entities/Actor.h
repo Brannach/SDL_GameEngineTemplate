@@ -4,7 +4,7 @@
 #include "Collider.h"
 #include "RigidBody.h"
 
-class Actor : GameObject
+class Actor : public GameObject
 {
 public:
 	Actor();
@@ -25,7 +25,7 @@ public:
 	inline RigidBody* GetRigidBody() { return ActorRigidBody; }
 	inline Collider* GetCollider() { return ActorCollider; }
 
-private:
+protected:
 	Collider* ActorCollider;
 	RigidBody* ActorRigidBody;
 };

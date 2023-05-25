@@ -37,7 +37,7 @@ public:
 		Width = pr->Width;
 		Height = pr->Height;
 		ObjectFlip = pr->Flip;
-		Transform = new Transform2d(pr->X, pr->Y);
+		ObjectTransform = new Transform2d(pr->X, pr->Y);
 
 		Origin = new Point2d();
 		Origin->X = pr->X + pr->Width / 2;
@@ -49,11 +49,11 @@ public:
 	virtual void DrawCollisorBox() = 0;
 	virtual void Update(float delta) = 0;
 	virtual void Clean() = 0;
-	inline Transform2d* GetTrasform() { return Transform; }
+	inline Transform2d* GetTransform() { return ObjectTransform; }
 
 protected:
 	Point2d* Origin;
-	Transform2d* Transform;
+	Transform2d* ObjectTransform;
 	int Width, Height;
 	string TextureId;
 	SDL_RendererFlip ObjectFlip;
