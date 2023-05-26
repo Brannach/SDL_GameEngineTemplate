@@ -30,6 +30,7 @@ public:
 	static inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	static inline MainApplication* GetMainApplication() { return EngineMainApplication; }
 	static inline list<Actor*> GetRenderedActors() { return RenderActor; }
+	static inline void RemoveRenderedActor(Actor* actor) { RenderActor.remove(actor); }
 
 private:
 	static MainApplication* EngineMainApplication;

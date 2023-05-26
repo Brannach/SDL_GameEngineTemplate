@@ -21,7 +21,6 @@ void BouncingBall::Update(float delta)
 		{
 			if (collisionHandler->CheckRectCollision(ActorCollider->Get(), actor->GetCollider()->Get()))
 			{
-				//collision with X walls
 				Vector2d values = collisionHandler->GetCollisionValues(ActorCollider->Get(), actor->GetCollider()->Get());
 				if (values.X < 0) {
 					ObjectTransform->X = LastSafePosition.X;
@@ -33,6 +32,10 @@ void BouncingBall::Update(float delta)
 					Force.Y *= -1;
 				}				
 				ActorRigidBody->Update(delta);
+				if (classType.find("Brick") != string::npos)
+				{
+					Engine::GetInstance()->RemoveRenderedActor(actor);
+				}
 				return;
 			}
 		}
