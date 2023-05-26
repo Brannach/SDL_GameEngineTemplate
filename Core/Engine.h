@@ -28,11 +28,12 @@ public:
 	void Quit();
 	static inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	static inline MainApplication* GetMainApplication() { return EngineMainApplication; }
+	static inline list<Actor*> GetRenderedActors() { return RenderActor; }
 
 private:
 	static MainApplication* EngineMainApplication;
 	static Engine* EngineInstance;
 	bool IsEngineRunning = false;
-	list<Actor*> RenderActor;
+	static list<Actor*> RenderActor;
 };
 

@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <tuple>
+#include "Geometry2d.h"
 
 using namespace std;
 
@@ -10,7 +11,9 @@ using BoolPair = tuple<bool, bool>;
 class CollisionHandler
 {
 public:
-	BoolPair CheckCollision(SDL_Rect a, SDL_Rect b);
+	Vector2d GetCollisionValues(SDL_Rect a, SDL_Rect b);
+
+	bool CheckRectCollision(SDL_Rect a, SDL_Rect b);
 
 	BoolPair CheckAppWallCollision(SDL_Rect object);
 

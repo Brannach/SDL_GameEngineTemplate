@@ -6,16 +6,55 @@ using namespace std;
 
 CollisionHandler* CollisionHandler::CollisionHandlerInstance = nullptr;
 
+
+
 CollisionHandler::CollisionHandler()
 {
     Engine* engine = Engine::GetInstance();
 
 }
-BoolPair CollisionHandler::CheckCollision(SDL_Rect a, SDL_Rect b)
+Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b)
+{
+    float aHalfW = a.w / 2;
+    float aHalfH = a.h / 2;
+    float bHalfW = b.w / 2;
+    float bHalfH = b.h / 2;
+    float aCenterX = a.x + a.w / 2;
+    float aCenterY = a.y + a.h / 2;
+    float bCenterX = b.x + b.w / 2;
+    float bCenterY = b.y + b.h / 2;
+
+    // Calculate the distance between centers
+    float diffX = aCenterX - bCenterX;
+    float diffY = aCenterY - bCenterY;
+
+    // Calculate the minimum distance to separate along X and Y
+    float minXDist = aHalfW + bHalfW;
+    float minYDist = aHalfH + bHalfH;
+
+    // Calculate the depth of collision for both the X and Y axis
+    float depthX = diffX > 0 ? minXDist - diffX : -minXDist - diffX;
+    float depthY = diffY > 0 ? minYDist - diffY : -minYDist - diffY;
+    // Now that you have the depth, you can pick the smaller depth and move
+    // along that axis.
+    if (depthX != 0 && depthY != 0) {
+        if (abs(depthX) < abs(depthY)) {
+            // Collision along the X axis. React accordingly
+            return Vector2d(-1.0, 1.0);
+        }
+        else {
+            // Collision along the Y axis.
+            return Vector2d(1.0, -1.0);
+        }
+    }
+    return Vector2d (1.0, 1.0);
+}
+
+bool CollisionHandler::CheckRectCollision(SDL_Rect a, SDL_Rect b)
 {
     bool xOverlap = (a.x < b.x + b.w) && (a.x + a.w > b.x);
     bool yOverlap = (a.y < b.y + b.h) && (a.y + a.h > b.y);
-    return make_tuple(xOverlap, yOverlap);
+    return xOverlap && yOverlap;
 }
 
 BoolPair CollisionHandler::CheckAppWallCollision(SDL_Rect object)

@@ -6,6 +6,7 @@
 #include <SDL.h>
 
 #include <string>
+#include <list>
 
 using namespace std;
 
