@@ -8,8 +8,8 @@ public:
 	BouncingBall();
 	BouncingBall(Properties* pr) : Actor(pr) 
 	{
-		Force.X = 2.0;
-		Force.Y = -2.0;
+		Force.X = 1.0;
+		Force.Y = -1.0;
 	};
 
 	void Update(float delta);

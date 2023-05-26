@@ -23,6 +23,7 @@ public:
 
 	bool Init();
 	void Run();
+	void LoadScene();
 	void Update();
 	void Render();
 	void Quit();

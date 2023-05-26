@@ -17,7 +17,7 @@ void BouncingBall::Update(float delta)
 	for (Actor* actor : ActorList)
 	{
 		string classType = typeid(*actor).name();
-		if (classType.find("Brick") != string::npos)
+		if (classType.find("Brick") != string::npos || classType.find("Paddle") != string::npos)
 		{
 			if (collisionHandler->CheckRectCollision(ActorCollider->Get(), actor->GetCollider()->Get()))
 			{
