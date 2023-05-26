@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Transform2d.h"
+#include "CollisionHandler.h"
 
 #include <SDL.h>
 
@@ -57,5 +58,6 @@ protected:
 	int Width, Height;
 	string TextureId;
 	SDL_RendererFlip ObjectFlip;
+	Vector2d LastSafePosition;
 };
 
