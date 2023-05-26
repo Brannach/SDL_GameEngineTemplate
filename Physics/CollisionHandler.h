@@ -1,21 +1,28 @@
 #pragma once
 
 #include <SDL.h>
+#include <tuple>
+
+using namespace std;
+
+using BoolPair = tuple<bool, bool>;
 
 class CollisionHandler
 {
 public:
-	bool CheckCollision(SDL_Rect a, SDL_Rect b);
+	BoolPair CheckCollision(SDL_Rect a, SDL_Rect b);
+
+	BoolPair CheckAppWallCollision(SDL_Rect object);
 
 	static CollisionHandler* GetInstance()
 	{
-		if (sInstance != nullptr) return sInstance;
-		else return sInstance = new CollisionHandler();
+		if (CollisionHandlerInstance != nullptr) return CollisionHandlerInstance;
+		else return CollisionHandlerInstance = new CollisionHandler();
 	}
 
 private:
 	CollisionHandler();
 
-	static CollisionHandler* sInstance;
+	static CollisionHandler* CollisionHandlerInstance;
 	int mColCount, mRowCount, mTileSize;
 };

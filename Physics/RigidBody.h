@@ -3,7 +3,7 @@
 #include "Geometry2d.h"
 
 #define UNIT_MASS		1.0f
-#define DEFAULT_GRAVITY	1.0f
+#define DEFAULT_GRAVITY	0.0f
 
 class RigidBody
 {

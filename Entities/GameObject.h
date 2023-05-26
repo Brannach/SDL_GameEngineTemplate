@@ -41,8 +41,8 @@ public:
 		ObjectTransform = new Transform2d(pr->X, pr->Y);
 
 		Origin = new Point2d();
-		Origin->X = pr->X + pr->Width / 2;
-		Origin->Y = pr->Y + pr->Height / 2;
+		Origin->X = pr->X;// +pr->Width / 2;
+		Origin->Y = pr->Y;// +pr->Height / 2;
 	};
 
 	inline Point2d* GetOrigin() { return Origin; }

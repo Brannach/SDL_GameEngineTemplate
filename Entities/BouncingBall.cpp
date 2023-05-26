@@ -8,6 +8,8 @@ void BouncingBall::Update(float delta)
 	LastSafePosition.Y = ObjectTransform->Y;
 	ObjectTransform->Translate(ActorRigidBody->GetPosition());
 	ActorCollider->Set((int)ObjectTransform->X, (int)ObjectTransform->Y, Width, Height);
+
+	//Check collision with the borders or walls of the window application
 	BoolPair collisionResult = CollisionHandler::GetInstance()->CheckAppWallCollision(ActorCollider->Get());
 	if (get<0>(collisionResult))
 	{
@@ -21,5 +23,9 @@ void BouncingBall::Update(float delta)
 		ObjectTransform->Y = LastSafePosition.Y;
 		Force.Y *= -1;
 	}
+
+	//Check collision with bricks
+
+
 	ActorRigidBody->Update(delta);
 }
