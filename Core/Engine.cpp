@@ -21,8 +21,8 @@ void Engine::LoadScene()
 {
 	TextureRenderer::GetInstance()->Load("ball", "resources/actors/ball_marble.png", GetRenderer());
 	TextureRenderer::GetInstance()->Load("paddle", "resources/actors/paddle.png", GetRenderer());
-	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 300, 24, 24, SDL_FLIP_NONE));
-	Paddle* paddle = new Paddle(new Properties("paddle", 350, 500, 100, 40, SDL_FLIP_NONE));
+	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 300, 24, 24));
+	Paddle* paddle = new Paddle(new Properties("paddle", 350, 500, 100, 40));
 	RenderActor.push_back(Ball);
 	RenderActor.push_back(paddle);
 
@@ -34,6 +34,7 @@ void Engine::LoadScene()
 		CurrentGameMap->Render();
 	}
 }
+
 void Engine::Run()
 {
 	Init();

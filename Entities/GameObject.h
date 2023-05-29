@@ -21,7 +21,6 @@ public:
 		Width = width;
 		Height = height;
 		TextureId = textureId;
-
 	}
 	string TextureId;
 	int Width, Height;
@@ -40,10 +39,9 @@ public:
 		Height = pr->Height;
 		ObjectFlip = pr->Flip;
 		ObjectTransform = new Transform2d(pr->X, pr->Y);
-
 		Origin = new Point2d();
-		Origin->X = pr->X;// +pr->Width / 2;
-		Origin->Y = pr->Y;// +pr->Height / 2;
+		Origin->X = pr->X;
+		Origin->Y = pr->Y;
 	};
 
 	inline Point2d* GetOrigin() { return Origin; }
@@ -52,6 +50,7 @@ public:
 	virtual void Update(float delta) = 0;
 	virtual void Clean() = 0;
 	inline Transform2d* GetTransform() { return ObjectTransform; }
+	inline bool CanCollide() { return HasCollision; }
 
 protected:
 	Point2d* Origin;
@@ -60,5 +59,6 @@ protected:
 	string TextureId;
 	SDL_RendererFlip ObjectFlip;
 	Vector2d LastSafePosition;
+	bool HasCollision = true;
 };
 

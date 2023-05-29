@@ -16,8 +16,8 @@ void BouncingBall::Update(float delta)
 	list<Actor*> ActorList = Engine::GetInstance()->GetRenderedActors();
 	for (Actor* actor : ActorList)
 	{
-		string classType = typeid(*actor).name();
-		if (classType.find("Brick") != string::npos || classType.find("Paddle") != string::npos)
+		
+		if (actor->CanCollide() && actor != this)
 		{
 			if (collisionHandler->CheckRectCollision(ActorCollider->Get(), actor->GetCollider()->Get()))
 			{
@@ -32,6 +32,7 @@ void BouncingBall::Update(float delta)
 					Force.Y *= -1;
 				}				
 				ActorRigidBody->Update(delta);
+				string classType = typeid(*actor).name();
 				if (classType.find("Brick") != string::npos)
 				{
 					Engine::GetInstance()->RemoveRenderedActor(actor);
