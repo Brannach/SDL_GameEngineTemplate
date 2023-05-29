@@ -11,7 +11,7 @@ public:
 	Actor(Properties* pr) : GameObject(pr) 
 	{
 		ActorCollider = new Collider();
-		ActorCollider->Set(Origin->X, Origin->Y, Width, Height);
+		ActorCollider->Set((int)Origin->X, (int)Origin->Y, (int)Width, (int)Height);
 		ActorCollider->SetBuffer(0, 0, 0, 0);
 
 		ActorRigidBody = new RigidBody();

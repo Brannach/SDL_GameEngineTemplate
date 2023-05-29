@@ -15,7 +15,7 @@ public:
 	};
 
 	void Update(float delta);
-	void Draw();
+	void Draw2();
 
 protected:
 	SDL_Color BrickColor;

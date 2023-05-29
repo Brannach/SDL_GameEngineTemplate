@@ -6,7 +6,10 @@
 #include <SDL_image.h>
 
 #include "EventHandler.h"
+
 #include "MainApplication.h"
+#include "GameMap.h"
+#include "MapParser.h"
 #include "TextureRenderer.h"
 #include "Actor.h"
 
@@ -27,15 +30,18 @@ public:
 	void Update();
 	void Render();
 	void Quit();
-	static inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
-	static inline MainApplication* GetMainApplication() { return EngineMainApplication; }
-	static inline list<Actor*> GetRenderedActors() { return RenderActor; }
-	static inline void RemoveRenderedActor(Actor* actor) { RenderActor.remove(actor); }
+	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
+	inline MainApplication* GetMainApplication() { return EngineMainApplication; }
+	inline list<Actor*> GetRenderedActors() { return RenderActor; }
+	inline void RemoveRenderedActor(Actor* actor) { RenderActor.remove(actor); }
+	inline void AddRenderedActor(Actor* actor) { RenderActor.push_back(actor); }
+	inline GameMap* GetCurrentGameMap() { return CurrentGameMap; }
 
 private:
-	static MainApplication* EngineMainApplication;
+	GameMap* CurrentGameMap;
+	MainApplication* EngineMainApplication;
 	static Engine* EngineInstance;
 	bool IsEngineRunning = false;
-	static list<Actor*> RenderActor;
+	list<Actor*> RenderActor;
 };
 

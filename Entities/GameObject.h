@@ -32,7 +32,7 @@ public:
 class GameObject
 {
 public:
-	GameObject() {}
+	GameObject() { Height = 0; Width = 0; ObjectTransform = nullptr; }
 	GameObject(Properties* pr)
 	{
 		TextureId = pr->TextureId;

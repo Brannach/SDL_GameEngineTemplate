@@ -82,7 +82,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2-2.0.20\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_ttf-2.0.18\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_mixer-2.0.4\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_image-2.0.5\include;C:\Projects\GameEngineTemplate\Geometry;C:\Projects\GameEngineTemplate\Rendering;C:\Projects\GameEngineTemplate\Core;C:\Projects\GameEngineTemplate\Entities;C:\Projects\GameEngineTemplate\Physics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\GameEngineTemplate\tinyxml;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2-2.0.20\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_ttf-2.0.18\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_mixer-2.0.4\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_image-2.0.5\include;C:\Projects\GameEngineTemplate\Geometry;C:\Projects\GameEngineTemplate\Rendering;C:\Projects\GameEngineTemplate\Core;C:\Projects\GameEngineTemplate\Entities;C:\Projects\GameEngineTemplate\Physics;C:\Projects\GameEngineTemplate\Map;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -148,8 +148,14 @@
     <ClCompile Include="GameEngineTemplate.cpp" />
     <ClCompile Include="Core\MainApplication.cpp" />
     <ClCompile Include="Entities\Paddle.cpp" />
+    <ClCompile Include="Map\MapParser.cpp" />
+    <ClCompile Include="Map\TileLayer.cpp" />
     <ClCompile Include="Rendering\TextureRenderer.cpp" />
     <ClCompile Include="Physics\CollisionHandler.cpp" />
+    <ClCompile Include="tinyxml\tinystr.cpp" />
+    <ClCompile Include="tinyxml\tinyxml.cpp" />
+    <ClCompile Include="tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entities\Brick.h" />
@@ -160,6 +166,10 @@
     <ClInclude Include="Geometry\Geometry2d.h" />
     <ClInclude Include="Core\MainApplication.h" />
     <ClInclude Include="Entities\Paddle.h" />
+    <ClInclude Include="Map\GameMap.h" />
+    <ClInclude Include="Map\Layer.h" />
+    <ClInclude Include="Map\MapParser.h" />
+    <ClInclude Include="Map\TileLayer.h" />
     <ClInclude Include="Rendering\TextureRenderer.h" />
     <ClInclude Include="Physics\CollisionHandler.h" />
   </ItemGroup>

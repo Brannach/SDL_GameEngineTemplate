@@ -15,14 +15,14 @@ CollisionHandler::CollisionHandler()
 }
 Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b)
 {
-    float aHalfW = a.w / 2;
-    float aHalfH = a.h / 2;
-    float bHalfW = b.w / 2;
-    float bHalfH = b.h / 2;
-    float aCenterX = a.x + a.w / 2;
-    float aCenterY = a.y + a.h / 2;
-    float bCenterX = b.x + b.w / 2;
-    float bCenterY = b.y + b.h / 2;
+    float aHalfW = (float)a.w / 2;
+    float aHalfH = (float)a.h / 2;
+    float bHalfW = (float)b.w / 2;
+    float bHalfH = (float)b.h / 2;
+    float aCenterX = (float)a.x + a.w / 2;
+    float aCenterY = (float)a.y + a.h / 2;
+    float bCenterX = (float)b.x + b.w / 2;
+    float bCenterY = (float)b.y + b.h / 2;
 
     // Calculate the distance between centers
     float diffX = aCenterX - bCenterX;
