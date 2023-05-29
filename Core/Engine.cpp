@@ -20,17 +20,19 @@ bool Engine::Init()
 void Engine::LoadScene()
 {
 	TextureRenderer::GetInstance()->Load("ball", "resources/actors/ball_marble.png", GetRenderer());
-	TextureRenderer::GetInstance()->Load("paddle", "resources/actors/paddle.png", GetRenderer());
+	TextureRenderer::GetInstance()->Load("paddle", "resources/actors/48-Breakout-Tiles.png", GetRenderer());
 	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 300, 24, 24));
-	Paddle* paddle = new Paddle(new Properties("paddle", 350, 500, 100, 40));
+	Paddle* GamePaddle = new Paddle(new Properties("paddle", 350, 500, 100, 25));
 	RenderActor.push_back(Ball);
-	RenderActor.push_back(paddle);
+	RenderActor.push_back(GamePaddle);
 
-	if (!MapParser::GetInstance()->Load())
+	CurrentGameMap = MapParser::GetInstance()->Load("Map01", "Resources/Maps/Map01.tmx");
+	if (CurrentGameMap == nullptr)
+	{
 		cout << "Failed to load map" << endl;
+	}
 	else
 	{
-		CurrentGameMap = MapParser::GetInstance()->GetMap("Map01");
 		CurrentGameMap->Render();
 	}
 }
