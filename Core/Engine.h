@@ -43,7 +43,7 @@ private:
 	GameMap* CurrentGameMap;
 	MainApplication* EngineMainApplication;
 	static Engine* EngineInstance;
-	bool IsEngineRunning = false;
+	bool IsEngineRunning = true;
 	list<Actor*> RenderActor;
 	TemplateGameplayRules* GameplayRules;
 };

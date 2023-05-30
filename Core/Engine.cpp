@@ -14,9 +14,9 @@ bool Engine::Init()
 		return false;
 	}
 	EngineMainApplication = new MainApplication("Engine Template");
-	GameplayRules = new TemplateGameplayRules(513);
+	
 
-	IsEngineRunning = true;
+	GameplayRules->SetCurrentGameState(Running);
 	return true;
 }
 
@@ -46,14 +46,43 @@ void Engine::LoadScene()
 
 void Engine::Run()
 {
-	Init();
-	LoadScene();
+	EventHandler* eventHandler = EventHandler::GetInstance();
+	GameplayRules = new TemplateGameplayRules(512);
 	while (IsEngineRunning)
 	{
-		EventHandler::GetInstance()->Listen();
-		GameplayRules->Update();
-		Update();
-		Render();
+		switch (GameplayRules->GetCurrentGameState())
+		{
+		case Initializing:
+		{
+			Init();
+			LoadScene();
+			break;
+		}
+
+		case Running:
+		{
+			eventHandler->Listen();
+			GameplayRules->Update();
+			Update();
+			Render();
+			break;
+		}
+		
+		case LifeLost:
+		{
+			eventHandler->Listen();
+			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
+			{
+				GameplayRules->SetCurrentGameState(Running);
+			}
+			break;
+		}
+		case GameOver:
+		{
+			eventHandler->Listen();
+			break;
+		}
+		}
 	}
 }
 
