@@ -61,6 +61,6 @@ BoolPair CollisionHandler::CheckAppWallCollision(SDL_Rect object)
 {
 
     bool xOverlap = (object.x < 0) || (object.x + object.w > DEFAULT_SCREEN_WIDTH);
-    bool yOverlap = (object.y < 0) || (object.y + object.h > DEFAULT_SCREEN_HEIGTH);
+    bool yOverlap = (object.y < 0) || (object.y + object.h > Engine::GetInstance()->GetGameplayRules()->GetHealthLossLimit());
     return make_tuple(xOverlap, yOverlap);
 }

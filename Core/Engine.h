@@ -12,6 +12,7 @@
 #include "MapParser.h"
 #include "TextureRenderer.h"
 #include "Actor.h"
+#include "Gameplay.h"
 
 using namespace std;
 
@@ -36,6 +37,7 @@ public:
 	inline void RemoveRenderedActor(Actor* actor) { RenderActor.remove(actor); }
 	inline void AddRenderedActor(Actor* actor) { RenderActor.push_back(actor); }
 	inline GameMap* GetCurrentGameMap() { return CurrentGameMap; }
+	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules; }
 
 private:
 	GameMap* CurrentGameMap;
@@ -43,5 +45,6 @@ private:
 	static Engine* EngineInstance;
 	bool IsEngineRunning = false;
 	list<Actor*> RenderActor;
+	TemplateGameplayRules* GameplayRules;
 };
 

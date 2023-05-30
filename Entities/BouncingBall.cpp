@@ -1,6 +1,7 @@
 #include "BouncingBall.h"
 #include "Engine.h"
 #include <typeinfo>
+
 void BouncingBall::Update(float delta)
 {
 	ActorRigidBody->ApplyForce(Force);
@@ -10,13 +11,19 @@ void BouncingBall::Update(float delta)
 	ObjectTransform->Translate(ActorRigidBody->GetPosition());
 	ActorCollider->Set((int)ObjectTransform->X, (int)ObjectTransform->Y, Width, Height);
 
+	//Lose health when Y coordinate passes the Y limit
+	if ((LastSafePosition.Y + Height) > Engine::GetInstance()->GetGameplayRules()->GetHealthLossLimit()-1)
+	{
+		Engine::GetInstance()->GetGameplayRules()->DecreaseHealth(1);
+	}
+
 	CollisionHandler* collisionHandler = CollisionHandler::GetInstance();
 	BoolPair collisionResult;
+
 	//Check collision with bricks
 	list<Actor*> ActorList = Engine::GetInstance()->GetRenderedActors();
 	for (Actor* actor : ActorList)
 	{
-		
 		if (actor->CanCollide() && actor != this)
 		{
 			if (collisionHandler->CheckRectCollision(ActorCollider->Get(), actor->GetCollider()->Get()))
@@ -42,7 +49,7 @@ void BouncingBall::Update(float delta)
 		}
 	}
 
-	//Check collision with the borders or walls of the window application
+	//Check collision with the walls of the window application
 	collisionResult = collisionHandler->CheckAppWallCollision(ActorCollider->Get());
 	if (get<0>(collisionResult))
 	{

@@ -148,6 +148,7 @@
     <ClCompile Include="GameEngineTemplate.cpp" />
     <ClCompile Include="Core\MainApplication.cpp" />
     <ClCompile Include="Entities\Paddle.cpp" />
+    <ClCompile Include="Entities\Health.cpp" />
     <ClCompile Include="Map\MapParser.cpp" />
     <ClCompile Include="Map\TileLayer.cpp" />
     <ClCompile Include="Rendering\TextureRenderer.cpp" />
@@ -163,9 +164,11 @@
     <ClInclude Include="Entities\Actor.h" />
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\EventHandler.h" />
+    <ClInclude Include="Core\Gameplay.h" />
     <ClInclude Include="Geometry\Geometry2d.h" />
     <ClInclude Include="Core\MainApplication.h" />
     <ClInclude Include="Entities\Paddle.h" />
+    <ClInclude Include="Entities\Health.h" />
     <ClInclude Include="Map\GameMap.h" />
     <ClInclude Include="Map\Layer.h" />
     <ClInclude Include="Map\MapParser.h" />
