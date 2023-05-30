@@ -30,6 +30,7 @@ public:
 	void LoadScene();
 	void Update();
 	void Render();
+	void ResetViewport();
 	void Quit();
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	inline MainApplication* GetMainApplication() { return EngineMainApplication; }

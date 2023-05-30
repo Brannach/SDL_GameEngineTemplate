@@ -3,6 +3,13 @@
 
 void Paddle::Update(float delta)
 {
+	if (Engine::GetInstance()->GetGameplayRules()->GetCurrentGameState() != Running)
+	{
+		IsVisible = false;
+		ResetPosition();
+		return;
+	}
+	IsVisible = true;
 	EventHandler* eventHandler = EventHandler::GetInstance();
 
 	ActorRigidBody->ResetForce();

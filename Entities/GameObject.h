@@ -51,6 +51,7 @@ public:
 	virtual void Clean() = 0;
 	inline Transform2d* GetTransform() { return ObjectTransform; }
 	inline bool CanCollide() { return HasCollision; }
+	inline void ResetPosition() { ObjectTransform = new Transform2d(Origin->X, Origin->Y); }
 
 protected:
 	Point2d* Origin;
@@ -60,5 +61,6 @@ protected:
 	SDL_RendererFlip ObjectFlip;
 	Vector2d LastSafePosition;
 	bool HasCollision = true;
+	bool IsVisible = true;
 };
 

@@ -19,7 +19,7 @@ public:
 	};
 	inline int GetHealth() { return CurrentHealth; }
 	inline void SetHealth(int number) { CurrentHealth = number; CurrentGameState = LifeLost; }
-	inline void DecreaseHealth(int times) { CurrentHealth -= times; ; CurrentGameState = LifeLost; }
+	inline void DecreaseHealth(int times) { CurrentHealth -= times; }
 
 	inline GameState GetCurrentGameState() { return CurrentGameState; }
 	inline void SetCurrentGameState(GameState gameState) { CurrentGameState = gameState; }

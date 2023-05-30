@@ -8,12 +8,14 @@ public:
 	BouncingBall();
 	BouncingBall(Properties* pr) : Actor(pr) 
 	{
-		Force.X = 1.0;
-		Force.Y = -1.0;
+		ResetForce();
 	};
 
 	void Update(float delta);
-
+	void ResetForce() {
+		Force.X = 1.0;
+		Force.Y = -1.0;
+	}
 protected:
 	Vector2d Force;
 };

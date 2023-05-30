@@ -4,6 +4,13 @@
 
 void BouncingBall::Update(float delta)
 {
+	Engine* engine = Engine::GetInstance();
+	TemplateGameplayRules* gameRules = engine->GetGameplayRules();
+
+	if (gameRules->GetCurrentGameState() != Running)
+	{
+		return;
+	}
 	ActorRigidBody->ApplyForce(Force);
 	ActorRigidBody->Update(delta);
 	LastSafePosition.X = ObjectTransform->X;
@@ -11,17 +18,23 @@ void BouncingBall::Update(float delta)
 	ObjectTransform->Translate(ActorRigidBody->GetPosition());
 	ActorCollider->Set((int)ObjectTransform->X, (int)ObjectTransform->Y, Width, Height);
 
+	
 	//Lose health when Y coordinate passes the Y limit
-	if ((LastSafePosition.Y + Height) > Engine::GetInstance()->GetGameplayRules()->GetHealthLossLimit()-1)
+	if ((LastSafePosition.Y + Height) > gameRules->GetHealthLossLimit()-1)
 	{
-		Engine::GetInstance()->GetGameplayRules()->DecreaseHealth(1);
+		ResetPosition();
+		ResetForce();
+		IsVisible = false;
+		gameRules->DecreaseHealth(1);
+		gameRules->SetCurrentGameState(LifeLost);
+		return;
 	}
-
+	IsVisible = true;
 	CollisionHandler* collisionHandler = CollisionHandler::GetInstance();
 	BoolPair collisionResult;
 
 	//Check collision with bricks
-	list<Actor*> ActorList = Engine::GetInstance()->GetRenderedActors();
+	list<Actor*> ActorList = engine->GetRenderedActors();
 	for (Actor* actor : ActorList)
 	{
 		if (actor->CanCollide() && actor != this)
@@ -42,7 +55,7 @@ void BouncingBall::Update(float delta)
 				string classType = typeid(*actor).name();
 				if (classType.find("Brick") != string::npos)
 				{
-					Engine::GetInstance()->RemoveRenderedActor(actor);
+					engine->RemoveRenderedActor(actor);
 				}
 				return;
 			}

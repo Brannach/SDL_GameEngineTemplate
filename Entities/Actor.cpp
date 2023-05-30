@@ -15,8 +15,11 @@ void Actor::DrawCollisorBox()
 
 void Actor::Draw()
 {
-	Box box = ActorCollider->Get();
-	TextureRenderer::GetInstance()->Draw(TextureId, box, ObjectFlip, Engine::GetInstance()->GetRenderer());
+	if (IsVisible)
+	{
+		Box box = ActorCollider->Get();
+		TextureRenderer::GetInstance()->Draw(TextureId, box, ObjectFlip, Engine::GetInstance()->GetRenderer());
+	}
 }
 
 void Actor::Update(float delta)

@@ -14,7 +14,7 @@ bool Engine::Init()
 		return false;
 	}
 	EngineMainApplication = new MainApplication("Engine Template");
-	
+	LoadScene();
 
 	GameplayRules->SetCurrentGameState(Running);
 	return true;
@@ -25,7 +25,7 @@ void Engine::LoadScene()
 	TextureRenderer::GetInstance()->Load("ball", "resources/actors/ball_marble.png", GetRenderer());
 	TextureRenderer::GetInstance()->Load("paddle", "resources/actors/paddle.png", GetRenderer());
 	TextureRenderer::GetInstance()->Load("health", "resources/actors/health.png", GetRenderer());
-	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 300, 24, 24));
+	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 475, 24, 24));
 	Paddle* GamePaddle = new Paddle(new Properties("paddle", 350, 500, 100, 25));
 	Health* PlayerHealth = new Health(new Properties("health", 700, 550, 20, 20));
 
@@ -54,8 +54,7 @@ void Engine::Run()
 		{
 		case Initializing:
 		{
-			Init();
-			LoadScene();
+			Init();			
 			break;
 		}
 
@@ -75,6 +74,7 @@ void Engine::Run()
 			{
 				GameplayRules->SetCurrentGameState(Running);
 			}
+			Render();
 			break;
 		}
 		case GameOver:
@@ -96,14 +96,19 @@ void Engine::Update()
 
 void Engine::Render()
 {
-	SDL_SetRenderDrawColor(GetRenderer(), 35, 35, 35, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(GetRenderer());
+	ResetViewport();
 	
 	for (Actor* anActor : RenderActor)
 	{
 		anActor->Draw();
 	}
 	SDL_RenderPresent(GetRenderer());
+}
+
+void Engine::ResetViewport()
+{
+	SDL_SetRenderDrawColor(GetRenderer(), 35, 35, 35, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(GetRenderer());
 }
 
 void Engine::Quit()
