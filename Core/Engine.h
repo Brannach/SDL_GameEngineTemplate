@@ -13,6 +13,7 @@
 #include "TextureRenderer.h"
 #include "Actor.h"
 #include "Gameplay.h"
+#include "TextPrinter.h"
 
 using namespace std;
 
@@ -47,5 +48,6 @@ private:
 	bool IsEngineRunning = true;
 	list<Actor*> RenderActor;
 	TemplateGameplayRules* GameplayRules;
+	TextPrinter* EngineTextPrinter;
 };
 

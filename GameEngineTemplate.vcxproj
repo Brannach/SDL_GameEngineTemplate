@@ -151,6 +151,7 @@
     <ClCompile Include="Entities\Health.cpp" />
     <ClCompile Include="Map\MapParser.cpp" />
     <ClCompile Include="Map\TileLayer.cpp" />
+    <ClCompile Include="Rendering\TextPrinter.cpp" />
     <ClCompile Include="Rendering\TextureRenderer.cpp" />
     <ClCompile Include="Physics\CollisionHandler.cpp" />
     <ClCompile Include="tinyxml\tinystr.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Map\Layer.h" />
     <ClInclude Include="Map\MapParser.h" />
     <ClInclude Include="Map\TileLayer.h" />
+    <ClInclude Include="Rendering\TextPrinter.h" />
     <ClInclude Include="Rendering\TextureRenderer.h" />
     <ClInclude Include="Physics\CollisionHandler.h" />
   </ItemGroup>

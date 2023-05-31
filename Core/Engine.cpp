@@ -14,6 +14,7 @@ bool Engine::Init()
 		return false;
 	}
 	EngineMainApplication = new MainApplication("Engine Template");
+	EngineTextPrinter = new TextPrinter(GetRenderer());
 	LoadScene();
 
 	GameplayRules->SetCurrentGameState(Running);
@@ -74,6 +75,7 @@ void Engine::Run()
 			{
 				GameplayRules->SetCurrentGameState(Running);
 			}
+			
 			Render();
 			break;
 		}
@@ -97,7 +99,10 @@ void Engine::Update()
 void Engine::Render()
 {
 	ResetViewport();
-	
+	if (GameplayRules->GetCurrentGameState() == LifeLost)
+	{
+		EngineTextPrinter->PrintText("Press Space Key", 300, 520);
+	}
 	for (Actor* anActor : RenderActor)
 	{
 		anActor->Draw();
