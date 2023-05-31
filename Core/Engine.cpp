@@ -61,10 +61,13 @@ void Engine::Run()
 
 		case Running:
 		{
-			eventHandler->Listen();
-			GameplayRules->Update();
+			eventHandler->Listen();			
 			Update();
 			Render();
+			if (CountActorsByType(new Brick()) == 0)
+			{
+				GameplayRules->SetCurrentGameState(NewLevel);
+			}
 			break;
 		}
 		
@@ -88,8 +91,20 @@ void Engine::Run()
 			{
 				GameplayRules->SetCurrentGameState(Restarting);
 			}
-			
 			EngineTextPrinter->PrintText("Game Over!", 310, 520);
+			SDL_RenderPresent(GetRenderer());
+			break;
+		}
+		case NewLevel:
+		{
+			eventHandler->Listen();
+			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
+			{
+				GameplayRules->SetCurrentGameState(Restarting);
+			}
+			Update();
+			Render();
+			EngineTextPrinter->PrintText("New Level Unlocked!", 250, 520);
 			SDL_RenderPresent(GetRenderer());
 			break;
 		}

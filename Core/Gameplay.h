@@ -5,7 +5,7 @@ public:
 	inline void Update() { };
 };
 
-enum GameState { Initializing, Running, LifeLost, GameOver, Restarting };
+enum GameState { Initializing, Running, NewLevel, LifeLost, GameOver, Restarting };
 
 class TemplateGameplayRules : public IGameplayRules
 {

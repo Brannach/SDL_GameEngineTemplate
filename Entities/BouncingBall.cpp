@@ -9,6 +9,9 @@ void BouncingBall::Update(float delta)
 
 	if (gameRules->GetCurrentGameState() != Running)
 	{
+		IsVisible = false;
+		ResetPosition();
+		ResetForce();
 		return;
 	}
 	ActorRigidBody->ApplyForce(Force);

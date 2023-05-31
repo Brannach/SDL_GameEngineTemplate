@@ -1,12 +1,12 @@
 #pragma once
 
 #include <list>
+#include <typeinfo>
 
 #include <SDL.h>
 #include <SDL_image.h>
 
 #include "EventHandler.h"
-
 #include "MainApplication.h"
 #include "GameMap.h"
 #include "MapParser.h"
@@ -33,13 +33,16 @@ public:
 	void Render();
 	void ResetViewport();
 	void Quit();
+	template <class T>
+	int CountActorsByType(T classtype);
+
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	inline MainApplication* GetMainApplication() { return EngineMainApplication; }
 	inline list<Actor*> GetRenderedActors() { return RenderActor; }
 	inline void RemoveRenderedActor(Actor* actor) { RenderActor.remove(actor); }
 	inline void AddRenderedActor(Actor* actor) { RenderActor.push_back(actor); }
 	inline GameMap* GetCurrentGameMap() { return CurrentGameMap; }
-	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules; }
+	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules; }	
 
 private:
 	GameMap* CurrentGameMap;
@@ -51,3 +54,16 @@ private:
 	TextPrinter* EngineTextPrinter;
 };
 
+template <class T>
+int Engine::CountActorsByType(T classtype)
+{
+	int counter = 0;
+	for (auto actor : RenderActor)
+	{
+		if (dynamic_cast<T>(actor) != nullptr)
+		{
+			counter++;
+		}
+	};
+	return counter;
+}
