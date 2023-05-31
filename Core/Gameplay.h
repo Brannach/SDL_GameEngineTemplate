@@ -5,7 +5,7 @@ public:
 	inline void Update() { };
 };
 
-enum GameState { Initializing, Running, LifeLost, GameOver };
+enum GameState { Initializing, Running, LifeLost, GameOver, Restarting };
 
 class TemplateGameplayRules : public IGameplayRules
 {
@@ -18,8 +18,8 @@ public:
 		CurrentHealth = initialHealth;
 	};
 	inline int GetHealth() { return CurrentHealth; }
-	inline void SetHealth(int number) { CurrentHealth = number; CurrentGameState = LifeLost; }
-	inline void DecreaseHealth(int times) { CurrentHealth -= times; }
+	inline void SetHealth(int number) { CurrentHealth = number; }
+	inline void DecreaseHealth(int times) { CurrentHealth -= times; CurrentGameState = CurrentHealth > 0 ? LifeLost : GameOver; }
 
 	inline GameState GetCurrentGameState() { return CurrentGameState; }
 	inline void SetCurrentGameState(GameState gameState) { CurrentGameState = gameState; }

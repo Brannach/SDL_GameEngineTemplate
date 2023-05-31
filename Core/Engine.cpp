@@ -29,7 +29,7 @@ void Engine::LoadScene()
 	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 475, 24, 24));
 	Paddle* GamePaddle = new Paddle(new Properties("paddle", 350, 500, 100, 25));
 	Health* PlayerHealth = new Health(new Properties("health", 700, 550, 20, 20));
-
+	
 	RenderActor.push_back(Ball);
 	RenderActor.push_back(GamePaddle);
 	RenderActor.push_back(PlayerHealth);
@@ -75,13 +75,29 @@ void Engine::Run()
 			{
 				GameplayRules->SetCurrentGameState(Running);
 			}
+
+			EngineTextPrinter->PrintText("Press Space Key", 300, 520);
+			SDL_RenderPresent(GetRenderer());
 			
-			Render();
 			break;
 		}
 		case GameOver:
 		{
 			eventHandler->Listen();
+			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
+			{
+				GameplayRules->SetCurrentGameState(Restarting);
+			}
+			
+			EngineTextPrinter->PrintText("Game Over!", 310, 520);
+			SDL_RenderPresent(GetRenderer());
+			break;
+		}
+		case Restarting:
+		{
+			CurrentGameMap->Render();
+			GameplayRules->SetHealth(3);
+			GameplayRules->SetCurrentGameState(Running);
 			break;
 		}
 		}
@@ -99,10 +115,7 @@ void Engine::Update()
 void Engine::Render()
 {
 	ResetViewport();
-	if (GameplayRules->GetCurrentGameState() == LifeLost)
-	{
-		EngineTextPrinter->PrintText("Press Space Key", 300, 520);
-	}
+	
 	for (Actor* anActor : RenderActor)
 	{
 		anActor->Draw();

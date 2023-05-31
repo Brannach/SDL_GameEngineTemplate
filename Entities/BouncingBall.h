@@ -13,8 +13,8 @@ public:
 
 	void Update(float delta);
 	void ResetForce() {
-		Force.X = 1.0;
-		Force.Y = -1.0;
+		Force.X = 5.0;
+		Force.Y = -5.0;
 	}
 protected:
 	Vector2d Force;

@@ -20,13 +20,12 @@ void BouncingBall::Update(float delta)
 
 	
 	//Lose health when Y coordinate passes the Y limit
-	if ((LastSafePosition.Y + Height) > gameRules->GetHealthLossLimit()-1)
+	if ((LastSafePosition.Y + Height) > gameRules->GetHealthLossLimit()-Force.Y)
 	{
 		ResetPosition();
 		ResetForce();
 		IsVisible = false;
 		gameRules->DecreaseHealth(1);
-		gameRules->SetCurrentGameState(LifeLost);
 		return;
 	}
 	IsVisible = true;
