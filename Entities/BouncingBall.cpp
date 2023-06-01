@@ -21,9 +21,9 @@ void BouncingBall::Update(float delta)
 	ObjectTransform->Translate(ActorRigidBody->GetPosition());
 	ActorCollider->Set((int)ObjectTransform->X, (int)ObjectTransform->Y, Width, Height);
 
-	
+
 	//Lose health when Y coordinate passes the Y limit
-	if ((LastSafePosition.Y + Height) > gameRules->GetHealthLossLimit()-Force.Y)
+	if ((LastSafePosition.Y + Height) > gameRules->GetHealthLossLimit() - Force.Y)
 	{
 		ResetPosition();
 		ResetForce();
@@ -43,7 +43,9 @@ void BouncingBall::Update(float delta)
 		{
 			if (collisionHandler->CheckRectCollision(ActorCollider->Get(), actor->GetCollider()->Get()))
 			{
-				Vector2d values = collisionHandler->GetCollisionValues(ActorCollider->Get(), actor->GetCollider()->Get());
+				Vector2d centerValues;
+
+				Vector2d values = collisionHandler->GetCollisionValues(ActorCollider->Get(), actor->GetCollider()->Get(), centerValues);
 				if (values.X < 0) {
 					ObjectTransform->X = LastSafePosition.X;
 					Force.X *= -1;
@@ -52,6 +54,14 @@ void BouncingBall::Update(float delta)
 				{
 					ObjectTransform->Y = LastSafePosition.Y;
 					Force.Y *= -1;
+					if ((abs(values.X) > 20))
+					{
+						if ((centerValues.X * Force.X) < 0)
+						{
+							Force.X *= -1;
+						}
+						Force.X = 1 + abs(values.X) / 100;
+					}
 				}				
 				ActorRigidBody->Update(delta);
 				string classType = typeid(*actor).name();

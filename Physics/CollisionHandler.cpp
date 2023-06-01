@@ -6,14 +6,12 @@ using namespace std;
 
 CollisionHandler* CollisionHandler::CollisionHandlerInstance = nullptr;
 
-
-
 CollisionHandler::CollisionHandler()
 {
     Engine* engine = Engine::GetInstance();
 
 }
-Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b)
+Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b, Vector2d& centerDistances )
 {
     float aHalfW = (float)a.w / 2;
     float aHalfH = (float)a.h / 2;
@@ -28,6 +26,10 @@ Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b)
     float diffX = aCenterX - bCenterX;
     float diffY = aCenterY - bCenterY;
 
+    //Needed to know on which side (along the X axis) of the paddle center the ball collided
+    centerDistances.X = diffX;
+    centerDistances.Y = diffY;
+
     // Calculate the minimum distance to separate along X and Y
     float minXDist = aHalfW + bHalfW;
     float minYDist = aHalfH + bHalfH;
@@ -39,12 +41,12 @@ Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b)
     // along that axis.
     if (depthX != 0 && depthY != 0) {
         if (abs(depthX) < abs(depthY)) {
-            // Collision along the X axis. React accordingly
+            // Collision along the Y axis
             return Vector2d(-1.0, 1.0);
         }
         else {
-            // Collision along the Y axis.
-            return Vector2d(1.0, -1.0);
+            // Collision along the X axis.
+            return Vector2d(1.0 * abs(diffX), -1.0);
         }
     }
     return Vector2d (1.0, 1.0);

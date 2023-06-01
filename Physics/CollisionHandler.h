@@ -11,7 +11,7 @@ using BoolPair = tuple<bool, bool>;
 class CollisionHandler
 {
 public:
-	Vector2d GetCollisionValues(SDL_Rect a, SDL_Rect b);
+	Vector2d GetCollisionValues(SDL_Rect a, SDL_Rect b, Vector2d& centerDistances);
 
 	bool CheckRectCollision(SDL_Rect a, SDL_Rect b);
 
