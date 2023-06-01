@@ -90,6 +90,8 @@ void Engine::Run()
 				GameplayRules->SetCurrentGameState(GameComplete);
 				break;
 			}
+			Update();
+			ResetViewport();
 			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
 			{
 				advance(GameMapIterator, 1);
@@ -98,9 +100,7 @@ void Engine::Run()
 					GameplayRules->SetCurrentGameState(Restarting);
 					break;
 				}
-			}				
-			Update();
-			Render();
+			}
 			
 			break;
 		}
