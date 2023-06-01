@@ -42,11 +42,11 @@ void Engine::LoadScene()
 
 void Engine::Run()
 {
-	EventHandler* eventHandler = EventHandler::GetInstance();
+	EventHandler* MainEventHandler = EventHandler::GetInstance();
 	GameplayRules = new TemplateGameplayRules(512);
 	while (IsEngineRunning)
 	{
-		eventHandler->Listen();
+		MainEventHandler->Listen();
 		switch (GameplayRules->GetCurrentGameState())
 		{
 		case Initializing:
@@ -68,56 +68,57 @@ void Engine::Run()
 		
 		case LifeLost:
 		{
-			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
+			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "Life Lost! Press space key", 250, 520))
 			{
 				GameplayRules->SetCurrentGameState(Running);
 			}
-
-			EngineTextPrinter->PrintText("Press Space Key", 300, 520);
-			SDL_RenderPresent(GetRenderer());
-			
 			break;
 		}
 		case GameOver:
 		{
-			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
+			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "Game Over!", 310, 520))
 			{
 				GameplayRules->SetCurrentGameState(Restarting);
 			}
-			EngineTextPrinter->PrintText("Game Over!", 310, 520);
-			SDL_RenderPresent(GetRenderer());
 			break;
 		}
 		case NewLevel:
-		{
-			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
+		{			
+			//Special case for the last level
+			if (next(GameMapIterator) == GameMaps.end())
 			{
+				GameplayRules->SetCurrentGameState(GameComplete);
+				break;
+			}
+			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
+			{
+				advance(GameMapIterator, 1);
 				if (GameMapIterator != GameMaps.end())
 				{
-					advance(GameMapIterator, 1);
 					GameplayRules->SetCurrentGameState(Restarting);
+					break;
 				}
-			}
-			if (GameMapIterator != GameMaps.end())
-			{
-				Update();
-				Render();
-				EngineTextPrinter->PrintText("New Level Unlocked!", 250, 520);
-				SDL_RenderPresent(GetRenderer());
-			}
+			}				
+			Update();
+			Render();
+			
 			break;
 		}
 		case Restarting:
 		{
 			if (GameMapIterator != GameMaps.end())
-				(*GameMapIterator)->Render();
-			else
 			{
-				GameplayRules->SetCurrentGameState(GameOver);
-				break;
+				(*GameMapIterator)->Render();
 			}
 			GameplayRules->SetHealth(3);
 			GameplayRules->SetCurrentGameState(Running);
+			break;
+		}
+		case GameComplete:
+		{
+			ResetViewport();
+			DisplayModalMessage(SDL_SCANCODE_SPACE, "You beat it!", 310, 520);
+			
 			break;
 		}
 		}
@@ -153,4 +154,15 @@ void Engine::Quit()
 {
 	if (EngineMainApplication != nullptr) EngineMainApplication->DestroyApplication();
 	IsEngineRunning = false;
+}
+
+bool Engine::DisplayModalMessage(SDL_Scancode keyCode, string message, int x, int y)
+{
+	if (EventHandler::GetInstance()->GetKeyDown(keyCode) == 1)
+	{
+		return true;
+	}
+	EngineTextPrinter->PrintText(message, x, y);
+	SDL_RenderPresent(GetRenderer());
+	return false;
 }

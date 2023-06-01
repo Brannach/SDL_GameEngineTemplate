@@ -33,6 +33,8 @@ public:
 	void Render();
 	void ResetViewport();
 	void Quit();
+	bool DisplayModalMessage(SDL_Scancode keyCode, string message, int x, int y);
+
 	template <class T>
 	int CountActorsByType(T classtype);
 
