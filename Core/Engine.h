@@ -38,18 +38,22 @@ public:
 
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	inline MainApplication* GetMainApplication() { return EngineMainApplication; }
+
 	inline list<Actor*> GetRenderedActors() { return RenderActor; }
 	inline void RemoveRenderedActor(Actor* actor) { RenderActor.remove(actor); }
 	inline void AddRenderedActor(Actor* actor) { RenderActor.push_back(actor); }
-	inline GameMap* GetCurrentGameMap() { return CurrentGameMap; }
+	
+	inline void AddGameMap(GameMap* map) { GameMaps.push_back(map); }
+
 	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules; }	
 
 private:
-	GameMap* CurrentGameMap;
 	MainApplication* EngineMainApplication;
 	static Engine* EngineInstance;
 	bool IsEngineRunning = true;
 	list<Actor*> RenderActor;
+	list<GameMap*> GameMaps;
+	list<GameMap*>::iterator GameMapIterator;
 	TemplateGameplayRules* GameplayRules;
 	TextPrinter* EngineTextPrinter;
 };

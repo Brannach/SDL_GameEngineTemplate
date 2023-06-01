@@ -34,15 +34,10 @@ void Engine::LoadScene()
 	RenderActor.push_back(GamePaddle);
 	RenderActor.push_back(PlayerHealth);
 
-	CurrentGameMap = MapParser::GetInstance()->Load("Map01", "Resources/Maps/Map01.tmx");
-	if (CurrentGameMap == nullptr)
-	{
-		cout << "Failed to load map" << endl;
-	}
-	else
-	{
-		CurrentGameMap->Render();
-	}
+	AddGameMap(MapParser::GetInstance()->Load("Map01", "Resources/Maps/Map01.tmx"));
+	AddGameMap(MapParser::GetInstance()->Load("Map02", "Resources/Maps/Map02.tmx"));
+	GameMapIterator = GameMaps.begin();
+	(*GameMapIterator)->Render();
 }
 
 void Engine::Run()
@@ -51,6 +46,7 @@ void Engine::Run()
 	GameplayRules = new TemplateGameplayRules(512);
 	while (IsEngineRunning)
 	{
+		eventHandler->Listen();
 		switch (GameplayRules->GetCurrentGameState())
 		{
 		case Initializing:
@@ -60,8 +56,7 @@ void Engine::Run()
 		}
 
 		case Running:
-		{
-			eventHandler->Listen();			
+		{	
 			Update();
 			Render();
 			if (CountActorsByType(new Brick()) == 0)
@@ -73,7 +68,6 @@ void Engine::Run()
 		
 		case LifeLost:
 		{
-			eventHandler->Listen();
 			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
 			{
 				GameplayRules->SetCurrentGameState(Running);
@@ -86,7 +80,6 @@ void Engine::Run()
 		}
 		case GameOver:
 		{
-			eventHandler->Listen();
 			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
 			{
 				GameplayRules->SetCurrentGameState(Restarting);
@@ -97,20 +90,32 @@ void Engine::Run()
 		}
 		case NewLevel:
 		{
-			eventHandler->Listen();
 			if (eventHandler->GetKeyDown(SDL_SCANCODE_SPACE) == 1)
 			{
-				GameplayRules->SetCurrentGameState(Restarting);
+				if (GameMapIterator != GameMaps.end())
+				{
+					advance(GameMapIterator, 1);
+					GameplayRules->SetCurrentGameState(Restarting);
+				}
 			}
-			Update();
-			Render();
-			EngineTextPrinter->PrintText("New Level Unlocked!", 250, 520);
-			SDL_RenderPresent(GetRenderer());
+			if (GameMapIterator != GameMaps.end())
+			{
+				Update();
+				Render();
+				EngineTextPrinter->PrintText("New Level Unlocked!", 250, 520);
+				SDL_RenderPresent(GetRenderer());
+			}
 			break;
 		}
 		case Restarting:
 		{
-			CurrentGameMap->Render();
+			if (GameMapIterator != GameMaps.end())
+				(*GameMapIterator)->Render();
+			else
+			{
+				GameplayRules->SetCurrentGameState(GameOver);
+				break;
+			}
 			GameplayRules->SetHealth(3);
 			GameplayRules->SetCurrentGameState(Running);
 			break;
