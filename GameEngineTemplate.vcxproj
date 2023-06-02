@@ -154,6 +154,7 @@
     <ClCompile Include="Rendering\TextPrinter.cpp" />
     <ClCompile Include="Rendering\TextureRenderer.cpp" />
     <ClCompile Include="Physics\CollisionHandler.cpp" />
+    <ClCompile Include="Core\Ticker.cpp" />
     <ClCompile Include="tinyxml\tinystr.cpp" />
     <ClCompile Include="tinyxml\tinyxml.cpp" />
     <ClCompile Include="tinyxml\tinyxmlerror.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Rendering\TextPrinter.h" />
     <ClInclude Include="Rendering\TextureRenderer.h" />
     <ClInclude Include="Physics\CollisionHandler.h" />
+    <ClInclude Include="Core\Ticker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

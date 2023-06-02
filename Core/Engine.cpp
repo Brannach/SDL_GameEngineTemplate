@@ -3,7 +3,7 @@
 #include "Brick.h"
 #include "Paddle.h"
 #include "Health.h"
-
+#include "Ticker.h"
 Engine* Engine::EngineInstance = nullptr;
 
 bool Engine::Init()
@@ -46,6 +46,8 @@ void Engine::Run()
 	GameplayRules = new TemplateGameplayRules(512);
 	while (IsEngineRunning)
 	{
+		Ticker::GetInstance()->Tick();
+		float delta = Ticker::GetInstance()->GetDeltaTime();
 		MainEventHandler->Listen();
 		switch (GameplayRules->GetCurrentGameState())
 		{
@@ -57,7 +59,7 @@ void Engine::Run()
 
 		case Running:
 		{	
-			Update();
+			Update(delta);
 			Render();
 			if (CountActorsByType(new Brick()) == 0)
 			{
@@ -90,7 +92,7 @@ void Engine::Run()
 				GameplayRules->SetCurrentGameState(GameComplete);
 				break;
 			}
-			Update();
+			Update(delta);
 			ResetViewport();
 			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
 			{
@@ -125,11 +127,11 @@ void Engine::Run()
 	}
 }
 
-void Engine::Update()
+void Engine::Update(float delta)
 {
 	for (Actor* anActor : RenderActor)
 	{
-		anActor->Update(1);
+		anActor->Update(delta);
 	}
 }
 

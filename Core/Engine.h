@@ -29,7 +29,7 @@ public:
 	bool Init();
 	void Run();
 	void LoadScene();
-	void Update();
+	void Update(float delta);
 	void Render();
 	void ResetViewport();
 	void Quit();
