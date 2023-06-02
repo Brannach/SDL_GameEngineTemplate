@@ -60,7 +60,6 @@ void BouncingBall::Update(float delta)
 						{
 							Force.X *= -1;
 						}
-						Force.X = 1 + abs(values.X) / 100;
 					}
 				}				
 				ActorRigidBody->Update(delta);

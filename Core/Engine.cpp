@@ -43,7 +43,7 @@ void Engine::LoadScene()
 void Engine::Run()
 {
 	EventHandler* MainEventHandler = EventHandler::GetInstance();
-	GameplayRules = new TemplateGameplayRules(512);
+	GameplayRules = new TemplateGameplayRules(525);
 	while (IsEngineRunning)
 	{
 		Ticker::GetInstance()->Tick();

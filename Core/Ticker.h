@@ -1,5 +1,5 @@
 #pragma once
-const int TARGET_FPS = 150;
+const int TARGET_FPS = 180;
 const float TARGET_DELTA = 1.5f;
 
 class Ticker
