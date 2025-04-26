@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Transform2d.h"
-#include "CollisionHandler.h"
+#include "..\Geometry\Transform2d.h"
+#include "..\Physics\CollisionHandler.h"
 
 #include <SDL.h>
 

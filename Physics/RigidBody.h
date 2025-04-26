@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Geometry2d.h"
+#include "..\Geometry\Geometry2d.h"
 
 #define UNIT_MASS		1.0f
 #define DEFAULT_GRAVITY	0.0f

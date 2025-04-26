@@ -8,12 +8,12 @@
 
 #include "EventHandler.h"
 #include "MainApplication.h"
-#include "GameMap.h"
-#include "MapParser.h"
-#include "TextureRenderer.h"
-#include "Actor.h"
+#include "..\Map\GameMap.h"
+#include "..\Map\MapParser.h"
+#include "..\Rendering\TextureRenderer.h"
+#include "..\Entities\Actor.h"
 #include "Gameplay.h"
-#include "TextPrinter.h"
+#include "..\Rendering\TextPrinter.h"
 
 using namespace std;
 

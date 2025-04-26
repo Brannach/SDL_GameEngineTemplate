@@ -1,6 +1,6 @@
 #include "TileLayer.h"
-#include "TextureRenderer.h"
-#include "Brick.h"
+#include "..\Rendering\TextureRenderer.h"
+#include "..\Entities\Brick.h"
 
 TileLayer::TileLayer(string name, int tileSize, int rowCount, int colCount, TileMap tileMap, TilesetList tileSetList)
 	: mTileSets (tileSize)

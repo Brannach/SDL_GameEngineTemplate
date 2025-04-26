@@ -1,5 +1,5 @@
 #include "Paddle.h"
-#include "EventHandler.h"
+#include "..\Core\EventHandler.h"
 
 void Paddle::Update(float delta)
 {

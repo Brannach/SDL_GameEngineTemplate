@@ -1,6 +1,6 @@
 #include "Actor.h"
-#include "Engine.h"
-#include "TextureRenderer.h"
+#include "..\Core\Engine.h"
+#include "..\Rendering\TextureRenderer.h"
 
 Actor::Actor()
 {

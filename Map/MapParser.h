@@ -2,7 +2,7 @@
 #include "TileLayer.h"
 #include "GameMap.h"
 
-#include "tinyxml.h"
+#include "..\tinyxml\tinyxml.h"
 
 #include <map>
 #include <string>

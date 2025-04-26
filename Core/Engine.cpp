@@ -1,9 +1,10 @@
 #include "Engine.h"
-#include "BouncingBall.h"
-#include "Brick.h"
-#include "Paddle.h"
-#include "Health.h"
-#include "Ticker.h"
+#include "..\Entities\BouncingBall.h"
+#include "..\Entities\Brick.h"
+#include "..\Entities\Paddle.h"
+#include "..\Entities\Health.h"
+#include "..\Core\Ticker.h"
+
 Engine* Engine::EngineInstance = nullptr;
 
 bool Engine::Init()

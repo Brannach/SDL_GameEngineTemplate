@@ -3,7 +3,7 @@
 #include "SDL.h"
 
 #include "Actor.h"
-#include "Engine.h"
+#include "..\Core\Engine.h"
 
 class Brick : public Actor
 {

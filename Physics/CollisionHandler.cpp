@@ -1,6 +1,6 @@
 #include "CollisionHandler.h"
-#include "Engine.h"
-#include "MainApplication.h"
+#include "..\Core\Engine.h"
+#include "..\Core\MainApplication.h"
 
 using namespace std;
 

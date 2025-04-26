@@ -1,8 +1,8 @@
 #pragma once
 
 #include "GameObject.h"
-#include "Collider.h"
-#include "RigidBody.h"
+#include "..\Physics\Collider.h"
+#include "..\Physics\RigidBody.h"
 
 class Actor : public GameObject
 {

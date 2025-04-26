@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #include <tuple>
-#include "Geometry2d.h"
+#include "..\Geometry\Geometry2d.h"
 
 using namespace std;
 

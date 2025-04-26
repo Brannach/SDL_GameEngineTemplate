@@ -114,7 +114,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2-2.0.20\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_ttf-2.0.18\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_mixer-2.0.4\include;C:\Projects\GameEngineTemplate\SDL_Libraries\SDL2_image-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SDL_Libraries\SDL2-2.0.20\include;$(SolutionDir)\SDL_Libraries\SDL2_ttf-2.0.18\include;$(SolutionDir)\SDL_Libraries\SDL2_mixer-2.0.4\include;$(SolutionDir)\SDL_Libraries\SDL2_image-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -179,6 +179,8 @@
     <ClInclude Include="Rendering\TextureRenderer.h" />
     <ClInclude Include="Physics\CollisionHandler.h" />
     <ClInclude Include="Core\Ticker.h" />
+    <ClInclude Include="tinyxml\tinystr.h" />
+    <ClInclude Include="tinyxml\tinyxml.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

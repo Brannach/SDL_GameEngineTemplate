@@ -2,7 +2,7 @@
 
 #include <string>
 #include <SDL.h>
-#include "Geometry2d.h"
+#include "..\Geometry\Geometry2d.h"
 using namespace std;
 
 #define DEFAULT_SCREEN_WIDTH 800
