@@ -200,6 +200,7 @@
     <Content Include="Resources\Fonts\lucotecia.black.ttf" />
     <Content Include="Resources\Maps\Map01.tmx" />
     <Content Include="Resources\Maps\Map02.tmx" />
+    <Content Include="Resources\Maps\Map03.tmx" />
     <Content Include="Resources\Maps\Tiles\01-Breakout-Tiles.png" />
     <Content Include="Resources\Maps\Tiles\02-Breakout-Tiles.png" />
     <Content Include="Resources\Maps\Tiles\03-Breakout-Tiles.png" />

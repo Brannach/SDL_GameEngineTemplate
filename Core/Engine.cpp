@@ -37,6 +37,7 @@ void Engine::LoadScene()
 
 	AddGameMap(MapParser::GetInstance()->Load("Map01", "./Resources/Maps/Map01.tmx"));
 	AddGameMap(MapParser::GetInstance()->Load("Map02", "./Resources/Maps/Map02.tmx"));
+	AddGameMap(MapParser::GetInstance()->Load("Map03", "./Resources/Maps/Map03.tmx"));
 	GameMapIterator = GameMaps.begin();
 	(*GameMapIterator)->Render();
 }
