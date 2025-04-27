@@ -4,6 +4,3 @@ copy %1\SDL_Libraries\SDL2_image-2.0.5\lib\x64\*.dll %2
 copy %1\SDL_Libraries\SDL2_image-2.0.5\lib\x64\*.lib %2
 copy %1\SDL_Libraries\SDL2_ttf-2.0.18\lib\x64\*.dll %2
 copy %1\SDL_Libraries\SDL2_ttf-2.0.18\lib\x64\*.lib %2
-copy %1\Resources\Actors\*.* %2
-copy %1\Resources\Fonts\*.* %2
-copy %1\Resources\Maps\*.* %2
