@@ -21,6 +21,7 @@ Global
 		{AFB2CAAE-AC87-40E8-8D45-F6187B20B382}.Release|x64.Build.0 = Release|x64
 		{AFB2CAAE-AC87-40E8-8D45-F6187B20B382}.Release|x86.ActiveCfg = Release|Win32
 		{AFB2CAAE-AC87-40E8-8D45-F6187B20B382}.Release|x86.Build.0 = Release|Win32
+		{AFB2CAAE-AC87-40E8-8D45-F6187B20B382}.Debug|x64.Deploy.0 = Debug|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

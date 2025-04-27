@@ -123,6 +123,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\SDL_Libraries\SDL2-2.0.20\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_ttf-2.0.18\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_image-2.0.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)\copy_libs.bat $(SolutionDir) $(OutputDir)$(Platform)\$(Configuration)\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -182,6 +185,44 @@
     <ClInclude Include="Core\Ticker.h" />
     <ClInclude Include="tinyxml\tinystr.h" />
     <ClInclude Include="tinyxml\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Actors\ball_blue.png" />
+    <Content Include="Resources\Actors\ball_crazy.png" />
+    <Content Include="Resources\Actors\ball_green.png" />
+    <Content Include="Resources\Actors\ball_marble.png" />
+    <Content Include="Resources\Actors\ball_metal.png" />
+    <Content Include="Resources\Actors\ball_red.png" />
+    <Content Include="Resources\Actors\ball_white.png" />
+    <Content Include="Resources\Actors\ball_yellow.png" />
+    <Content Include="Resources\Actors\health.png" />
+    <Content Include="Resources\Actors\paddle.png" />
+    <Content Include="Resources\Fonts\lucotecia.black.ttf" />
+    <Content Include="Resources\Maps\Map01.tmx" />
+    <Content Include="Resources\Maps\Map02.tmx" />
+    <Content Include="Resources\Maps\Tiles\01-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\02-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\03-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\04-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\05-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\06-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\07-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\08-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\09-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\10-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\11-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\12-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\13-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\14-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\15-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\16-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\17-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\18-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\19-Breakout-Tiles.png" />
+    <Content Include="Resources\Maps\Tiles\20-Breakout-Tiles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Resources\Maps\BrickTileSet.tsx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,9 +24,9 @@ bool Engine::Init()
 
 void Engine::LoadScene()
 {
-	TextureRenderer::GetInstance()->Load("ball", "resources/actors/ball_marble.png", GetRenderer());
-	TextureRenderer::GetInstance()->Load("paddle", "resources/actors/paddle.png", GetRenderer());
-	TextureRenderer::GetInstance()->Load("health", "resources/actors/health.png", GetRenderer());
+	TextureRenderer::GetInstance()->Load("ball", "ball_marble.png", GetRenderer());
+	TextureRenderer::GetInstance()->Load("paddle", "paddle.png", GetRenderer());
+	TextureRenderer::GetInstance()->Load("health", "health.png", GetRenderer());
 	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 475, 24, 24));
 	Paddle* GamePaddle = new Paddle(new Properties("paddle", 350, 500, 100, 25));
 	Health* PlayerHealth = new Health(new Properties("health", 700, 550, 20, 20));
@@ -35,8 +35,8 @@ void Engine::LoadScene()
 	RenderActor.push_back(GamePaddle);
 	RenderActor.push_back(PlayerHealth);
 
-	AddGameMap(MapParser::GetInstance()->Load("Map01", "Resources/Maps/Map01.tmx"));
-	AddGameMap(MapParser::GetInstance()->Load("Map02", "Resources/Maps/Map02.tmx"));
+	AddGameMap(MapParser::GetInstance()->Load("Map01", "Map01.tmx"));
+	AddGameMap(MapParser::GetInstance()->Load("Map02", "Map02.tmx"));
 	GameMapIterator = GameMaps.begin();
 	(*GameMapIterator)->Render();
 }
