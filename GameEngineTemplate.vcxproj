@@ -120,7 +120,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\SDL_Libraries\SDL2-2.0.20\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_ttf-2.0.18\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_image-2.0.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SDL_Libraries\SDL2-2.0.20\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_ttf-2.0.18\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)\SDL_Libraries\SDL2_image-2.0.5\lib\x64;C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\lib\x64\uwp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
