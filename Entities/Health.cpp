@@ -3,12 +3,12 @@
 
 void Health::Update(float delta)
 {
-	Box box = ActorCollider->Get();
+	Box box = ActorCollider.Get();
 }
 
 void Health::Draw()
 {
-	Box box = ActorCollider->Get();
+	Box box = ActorCollider.Get();
 	
 	int currentHealth = Engine::GetInstance()->GetGameplayRules()->GetHealth();
 	for (int i = 0; i < currentHealth; i++)

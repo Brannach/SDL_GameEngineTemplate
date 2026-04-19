@@ -14,12 +14,12 @@ void BouncingBall::Update(float delta)
 		ResetForce();
 		return;
 	}
-	ActorRigidBody->ApplyForce(Force);
-	ActorRigidBody->Update(delta);
+	ActorRigidBody.ApplyForce(Force);
+	ActorRigidBody.Update(delta);
 	LastSafePosition.X = ObjectTransform->X;
 	LastSafePosition.Y = ObjectTransform->Y;
-	ObjectTransform->Translate(ActorRigidBody->GetPosition());
-	ActorCollider->Set((int)ObjectTransform->X, (int)ObjectTransform->Y, Width, Height);
+	ObjectTransform->Translate(ActorRigidBody.GetPosition());
+	ActorCollider.Set((int)ObjectTransform->X, (int)ObjectTransform->Y, Width, Height);
 
 
 	//Lose health when Y coordinate passes the Y limit
@@ -41,11 +41,11 @@ void BouncingBall::Update(float delta)
 	{
 		if (actor->CanCollide() && actor != this)
 		{
-			if (collisionHandler->CheckRectCollision(ActorCollider->Get(), actor->GetCollider()->Get()))
+			if (collisionHandler->CheckRectCollision(ActorCollider.Get(), actor->GetCollider().Get()))
 			{
 				Vector2d centerValues;
 
-				Vector2d values = collisionHandler->GetCollisionValues(ActorCollider->Get(), actor->GetCollider()->Get(), centerValues);
+				Vector2d values = collisionHandler->GetCollisionValues(ActorCollider.Get(), actor->GetCollider().Get(), centerValues);
 				if (values.X < 0) {
 					ObjectTransform->X = LastSafePosition.X;
 					Force.X *= -1;
@@ -62,7 +62,7 @@ void BouncingBall::Update(float delta)
 						}
 					}
 				}				
-				ActorRigidBody->Update(delta);
+				ActorRigidBody.Update(delta);
 				string classType = typeid(*actor).name();
 				if (classType.find("Brick") != string::npos)
 				{
@@ -74,7 +74,7 @@ void BouncingBall::Update(float delta)
 	}
 
 	//Check collision with the walls of the window application
-	collisionResult = collisionHandler->CheckAppWallCollision(ActorCollider->Get());
+	collisionResult = collisionHandler->CheckAppWallCollision(ActorCollider.Get());
 	if (get<0>(collisionResult))
 	{
 		//collision with X walls
@@ -88,5 +88,5 @@ void BouncingBall::Update(float delta)
 		Force.Y *= -1;
 	}
 
-	ActorRigidBody->Update(delta);
+	ActorRigidBody.Update(delta);
 }

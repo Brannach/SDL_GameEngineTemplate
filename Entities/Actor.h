@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "GameObject.h"
 #include "..\Physics\Collider.h"
 #include "..\Physics\RigidBody.h"
@@ -10,22 +12,22 @@ public:
 	Actor();
 	Actor(Properties* pr) : GameObject(pr) 
 	{
-		ActorCollider = new Collider();
-		ActorCollider->Set((int)Origin->X, (int)Origin->Y, (int)Width, (int)Height);
-		ActorCollider->SetBuffer(0, 0, 0, 0);
+		ActorCollider = Collider();
+		ActorCollider.Set((int)Origin->X, (int)Origin->Y, (int)Width, (int)Height);
+		ActorCollider.SetBuffer(0, 0, 0, 0);
 
-		ActorRigidBody = new RigidBody();
-		ActorRigidBody->SetGravity(DEFAULT_GRAVITY);
+		ActorRigidBody = RigidBody();
+		ActorRigidBody.SetGravity(DEFAULT_GRAVITY);
 	};
 
 	virtual void Draw();
 	virtual void Update(float delta);
 	virtual void Clean();
 	virtual void DrawCollisorBox();
-	inline RigidBody* GetRigidBody() { return ActorRigidBody; }
-	inline Collider* GetCollider() { return ActorCollider; }
+	inline RigidBody GetRigidBody() { return ActorRigidBody; }
+	inline Collider GetCollider() { return ActorCollider; }
 
 protected:
-	Collider* ActorCollider;
-	RigidBody* ActorRigidBody;
+	Collider ActorCollider;
+	RigidBody ActorRigidBody;
 };

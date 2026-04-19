@@ -14,9 +14,9 @@ public:
 	{
 		ColliderBox =
 		{
-			x ,
+			x,
 			y,
-			w ,
+			w,
 			h
 		};
 	}
