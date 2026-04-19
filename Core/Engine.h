@@ -36,7 +36,7 @@ public:
 	bool DisplayModalMessage(SDL_Scancode keyCode, string message, int x, int y);
 
 	template <class T>
-	int CountActorsByType(T classtype);
+	int CountActorsByType();
 
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	inline MainApplication* GetMainApplication() { return EngineMainApplication; }
@@ -61,12 +61,12 @@ private:
 };
 
 template <class T>
-int Engine::CountActorsByType(T classtype)
+int Engine::CountActorsByType()
 {
 	int counter = 0;
 	for (auto actor : RenderActor)
 	{
-		if (dynamic_cast<T>(actor) != nullptr)
+		if (dynamic_cast<T*>(actor) != nullptr)
 		{
 			counter++;
 		}

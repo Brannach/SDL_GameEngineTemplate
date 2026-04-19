@@ -63,7 +63,7 @@ void Engine::Run()
 		{	
 			Update(delta);
 			Render();
-			if (CountActorsByType(new Brick()) == 0)
+			if (CountActorsByType<Brick>() == 0)
 			{
 				GameplayRules->SetCurrentGameState(NewLevel);
 			}
