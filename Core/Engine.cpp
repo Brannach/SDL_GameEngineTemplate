@@ -27,9 +27,9 @@ void Engine::LoadScene()
 	TextureRenderer::GetInstance()->Load("ball", "./Resources/Actors/ball_marble.png", GetRenderer());
 	TextureRenderer::GetInstance()->Load("paddle", "./Resources/Actors/paddle.png", GetRenderer());
 	TextureRenderer::GetInstance()->Load("health", "./Resources/Actors/health.png", GetRenderer());
-	BouncingBall* Ball = new BouncingBall(new Properties("ball", 400, 475, 24, 24));
-	Paddle* GamePaddle = new Paddle(new Properties("paddle", 350, 500, 100, 25));
-	Health* PlayerHealth = new Health(new Properties("health", 700, 550, 20, 20));
+	BouncingBall* Ball = new BouncingBall(Properties("ball", 400, 475, 24, 24));
+	Paddle* GamePaddle = new Paddle(Properties("paddle", 350, 500, 100, 25));
+	Health* PlayerHealth = new Health(Properties("health", 700, 550, 20, 20));
 	
 	RenderActor.push_back(Ball);
 	RenderActor.push_back(GamePaddle);

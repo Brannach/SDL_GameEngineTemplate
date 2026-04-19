@@ -10,7 +10,7 @@ class Actor : public GameObject
 {
 public:
 	Actor();
-	Actor(Properties* pr) : GameObject(pr) 
+	Actor(const Properties& pr) : GameObject(pr) 
 	{
 		ActorCollider = Collider();
 		ActorCollider.Set((int)Origin->X, (int)Origin->Y, (int)Width, (int)Height);

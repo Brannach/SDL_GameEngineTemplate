@@ -6,7 +6,7 @@ class BouncingBall : public Actor
 {
 public:
 	BouncingBall();
-	BouncingBall(Properties* pr) : Actor(pr) 
+	BouncingBall(const Properties& pr) : Actor(pr) 
 	{
 		ResetForce();
 	};

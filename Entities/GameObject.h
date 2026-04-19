@@ -32,16 +32,16 @@ class GameObject
 {
 public:
 	GameObject() { Height = 0; Width = 0; ObjectTransform = Transform2d(); }
-	GameObject(Properties* pr)
+	GameObject(const Properties& pr)
 	{
-		TextureId = pr->TextureId;
-		Width = pr->Width;
-		Height = pr->Height;
-		ObjectFlip = pr->Flip;
-		ObjectTransform = Transform2d(pr->X, pr->Y);
+		TextureId = pr.TextureId;
+		Width = pr.Width;
+		Height = pr.Height;
+		ObjectFlip = pr.Flip;
+		ObjectTransform = Transform2d(pr.X, pr.Y);
 		Origin = new Point2d();
-		Origin->X = pr->X;
-		Origin->Y = pr->Y;
+		Origin->X = pr.X;
+		Origin->Y = pr.Y;
 	};
 
 	inline Point2d* GetOrigin() { return Origin; }

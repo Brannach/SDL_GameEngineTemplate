@@ -9,8 +9,8 @@ class Brick : public Actor
 {
 public:
 	Brick() {};
-	Brick(Properties* pr) : Actor(pr) { BrickColor = { 0,0,0,0 }; };
-	Brick(Properties* pr, SDL_Color brickColor) : Actor(pr) 
+	Brick(const Properties& pr) : Actor(pr) { BrickColor = { 0,0,0,0 }; };
+	Brick(const Properties& pr, SDL_Color brickColor) : Actor(pr) 
 	{
 		BrickColor = brickColor;
 	};

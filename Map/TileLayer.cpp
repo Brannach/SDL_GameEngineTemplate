@@ -68,7 +68,7 @@ void TileLayer::Render()
 					int scaledTileHeight = mainWindowSize.height / mTileMap.size();
 					int scaledTileX = col * scaledTileWidth;
 					int scaledTileY = row * scaledTileHeight;
-					Brick* tile = new Brick(new Properties(tileSetName, scaledTileX, scaledTileY, scaledTileWidth, scaledTileHeight));
+					Brick* tile = new Brick(Properties(tileSetName, scaledTileX, scaledTileY, scaledTileWidth, scaledTileHeight));
 					Engine::GetInstance()->AddRenderedActor(tile);
 					
 					//TextureRenderer::GetInstance()->DrawTile(tileSetName, tileSet.TileWidth, tileSet.TileHeight, col * tileSet.TileWidth, row * tileSet.TileHeight, SDL_FLIP_NONE);

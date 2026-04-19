@@ -4,7 +4,7 @@ class Health : public Actor
 {
 public:
 	Health();
-	Health(Properties* pr) : Actor(pr)
+	Health(const Properties& pr) : Actor(pr)
 	{
 		
 	};

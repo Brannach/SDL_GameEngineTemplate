@@ -4,7 +4,7 @@ class Paddle : public Actor
 {
 public:
 	Paddle();
-	Paddle(Properties* pr) : Actor(pr)
+	Paddle(const Properties& pr) : Actor(pr)
 	{
 		Force.X = 0.0;
 		Force.Y = 0.0;
