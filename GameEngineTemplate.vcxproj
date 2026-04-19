@@ -171,6 +171,7 @@
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\EventHandler.h" />
     <ClInclude Include="Core\Gameplay.h" />
+    <ClInclude Include="Entities\GameObject.h" />
     <ClInclude Include="Geometry\Geometry2d.h" />
     <ClInclude Include="Core\MainApplication.h" />
     <ClInclude Include="Entities\Paddle.h" />

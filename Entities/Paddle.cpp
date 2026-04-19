@@ -23,15 +23,15 @@ void Paddle::Update(float delta)
 		ActorRigidBody.ApplyForceX(-1.0);
 	}
 
-	LastSafePosition.X = ObjectTransform->X;
-	ObjectTransform->Translate(ActorRigidBody.GetPosition());
-	ActorCollider.Set((int)ObjectTransform->X, (int)ObjectTransform->Y, Width, Height);
+	LastSafePosition.X = ObjectTransform.X;
+	ObjectTransform.Translate(ActorRigidBody.GetPosition());
+	ActorCollider.Set((int)ObjectTransform.X, (int)ObjectTransform.Y, Width, Height);
 
 	BoolPair collisionResult = CollisionHandler::GetInstance()->CheckAppWallCollision(ActorCollider.Get());
 	if (get<0>(collisionResult))
 	{
 		//collision with X walls
-		ObjectTransform->X = LastSafePosition.X;
+		ObjectTransform.X = LastSafePosition.X;
 		Force.X *= 0;
 	}
 	ActorRigidBody.Update(delta);

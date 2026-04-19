@@ -31,14 +31,14 @@ public:
 class GameObject
 {
 public:
-	GameObject() { Height = 0; Width = 0; ObjectTransform = nullptr; }
+	GameObject() { Height = 0; Width = 0; ObjectTransform = Transform2d(); }
 	GameObject(Properties* pr)
 	{
 		TextureId = pr->TextureId;
 		Width = pr->Width;
 		Height = pr->Height;
 		ObjectFlip = pr->Flip;
-		ObjectTransform = new Transform2d(pr->X, pr->Y);
+		ObjectTransform = Transform2d(pr->X, pr->Y);
 		Origin = new Point2d();
 		Origin->X = pr->X;
 		Origin->Y = pr->Y;
@@ -49,13 +49,13 @@ public:
 	virtual void DrawCollisorBox() = 0;
 	virtual void Update(float delta) = 0;
 	virtual void Clean() = 0;
-	inline Transform2d* GetTransform() { return ObjectTransform; }
+	inline Transform2d GetTransform() { return ObjectTransform; }
 	inline bool CanCollide() { return HasCollision; }
-	inline void ResetPosition() { ObjectTransform = new Transform2d(Origin->X, Origin->Y); }
+	inline void ResetPosition() { ObjectTransform = Transform2d(Origin->X, Origin->Y); }
 
 protected:
 	Point2d* Origin;
-	Transform2d* ObjectTransform;
+	Transform2d ObjectTransform;
 	int Width, Height;
 	string TextureId;
 	SDL_RendererFlip ObjectFlip;
