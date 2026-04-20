@@ -11,9 +11,6 @@ GameMap* MapParser::Load(string mapName, string fileName)
 
 void MapParser::Clean()
 {
-	map<string, GameMap*>::iterator it;
-	for (it = mMapDict.begin(); it != mMapDict.end(); it++)
-		it->second = nullptr;
 	mMapDict.clear();
 }
 
@@ -45,20 +42,20 @@ GameMap* MapParser::Parse(string mapId, string sourceFile)
 		}
 	}
 
-	GameMap* gameMap = new GameMap();
+	auto gameMap = make_unique<GameMap>();
 	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
 	{
 		if (e->Value() == string("layer"))
 		{
-			TileLayer* tileLayer = ParseTileLayer(e, tilesetList, tileSize, rowCount, colCount);
+			unique_ptr<TileLayer> tileLayer = ParseTileLayer(e, tilesetList, tileSize, rowCount, colCount);
 			gameMap->mColCount = colCount;
 			gameMap->mRowCount = rowCount;
 			gameMap->mTileSize = tileSize;
 			gameMap->mMapLayers.push_back(unique_ptr<Layer>(move(tileLayer)));
 		}
 	}
-	mMapDict[mapId] = gameMap;
-	return mMapDict[mapId];
+	mMapDict[mapId] = gameMap.get();
+	return gameMap.release();
 }
 
 Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset)
@@ -114,7 +111,7 @@ Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset)
 	return tileset;
 }
 
-TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tilesetList, int tileSize, int rowCount, int colCount)
+unique_ptr<TileLayer> MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tilesetList, int tileSize, int rowCount, int colCount)
 {
 	TiXmlElement* data = nullptr;
 	string name = xmlLayer->Attribute("name");
@@ -145,5 +142,5 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tileset
 		}
 	}
 
-	return new TileLayer(name, tileSize, rowCount, colCount, tileMap, tilesetList);
+	return make_unique<TileLayer>(name, tileSize, rowCount, colCount, tileMap, tilesetList);
 }

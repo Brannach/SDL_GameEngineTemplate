@@ -23,7 +23,7 @@ private:
 	MapParser();
 	GameMap* Parse(string mapId, string sourceFile);
 	Tileset ParseTileset(TiXmlElement* xmlTileset);
-	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tilesetList, int tileSize, int rowCount, int colCount);
+	unique_ptr<TileLayer> ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tilesetList, int tileSize, int rowCount, int colCount);
 
 	map<string, GameMap*> mMapDict;
 };
