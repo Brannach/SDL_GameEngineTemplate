@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "Layer.h"
@@ -25,10 +26,10 @@ public:
 	inline int GetTileSize() { return mTileSize; }
 	inline int GetMapWidth()	{ return mColCount * (mTileSize); }
 	inline int GetMapHeight()	{ return mRowCount * (mTileSize); }
-	inline vector<Layer*> GetLayers() { return mMapLayers; }
+	inline const vector<unique_ptr<Layer>>& GetLayers() { return mMapLayers; }
 private:
 	friend class MapParser;
-	vector<Layer*> mMapLayers;
+	vector<unique_ptr<Layer>> mMapLayers;
 	int mRowCount, mColCount, mTileSize;
 	
 };

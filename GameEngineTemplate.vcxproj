@@ -116,6 +116,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\SDL_Libraries\SDL2-2.0.20\include;$(SolutionDir)\SDL_Libraries\SDL2_ttf-2.0.18\include;$(SolutionDir)\SDL_Libraries\SDL2_mixer-2.0.4\include;$(SolutionDir)\SDL_Libraries\SDL2_image-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

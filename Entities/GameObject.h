@@ -39,22 +39,22 @@ public:
 		Height = pr.Height;
 		ObjectFlip = pr.Flip;
 		ObjectTransform = Transform2d(pr.X, pr.Y);
-		Origin = new Point2d();
-		Origin->X = pr.X;
-		Origin->Y = pr.Y;
+		Origin = Point2d();
+		Origin.X = pr.X;
+		Origin.Y = pr.Y;
 	};
 
-	inline Point2d* GetOrigin() { return Origin; }
+	inline Point2d GetOrigin() { return Origin; }
 	virtual void Draw() = 0;
 	virtual void DrawCollisorBox() = 0;
 	virtual void Update(float delta) = 0;
 	virtual void Clean() = 0;
 	inline Transform2d GetTransform() { return ObjectTransform; }
 	inline bool CanCollide() { return HasCollision; }
-	inline void ResetPosition() { ObjectTransform = Transform2d(Origin->X, Origin->Y); }
+	inline void ResetPosition() { ObjectTransform = Transform2d(Origin.X, Origin.Y); }
 
 protected:
-	Point2d* Origin;
+	Point2d Origin;
 	Transform2d ObjectTransform;
 	int Width, Height;
 	string TextureId;

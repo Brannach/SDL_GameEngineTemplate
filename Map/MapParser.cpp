@@ -55,7 +55,7 @@ GameMap* MapParser::Parse(string mapId, string sourceFile)
 			gameMap->mColCount = colCount;
 			gameMap->mRowCount = rowCount;
 			gameMap->mTileSize = tileSize;
-			gameMap->mMapLayers.push_back(tileLayer);
+			gameMap->mMapLayers.push_back(unique_ptr<Layer>(move(tileLayer)));
 		}
 	}
 	mMapDict[mapId] = gameMap;
