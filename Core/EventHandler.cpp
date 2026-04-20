@@ -1,7 +1,5 @@
 #include "EventHandler.h"
 
-EventHandler* EventHandler::EventHandlerInstance = nullptr;
-
 EventHandler::EventHandler()
 {
 	mKeyStates = SDL_GetKeyboardState(nullptr);

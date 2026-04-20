@@ -42,13 +42,13 @@ void Engine::LoadScene()
 
 void Engine::Run()
 {
-	EventHandler* MainEventHandler = EventHandler::GetInstance();
+	EventHandler& MainEventHandler = EventHandler::GetInstance();
 	GameplayRules = make_unique<TemplateGameplayRules>(TemplateGameplayRules(525));
 	while (IsEngineRunning)
 	{
 		Ticker::GetInstance()->Tick();
 		float delta = Ticker::GetInstance()->GetDeltaTime();
-		MainEventHandler->Listen();
+		MainEventHandler.Listen();
 		switch (GameplayRules->GetCurrentGameState())
 		{
 		case Initializing:
@@ -160,7 +160,7 @@ void Engine::Quit()
 
 bool Engine::DisplayModalMessage(SDL_Scancode keyCode, string message, int x, int y)
 {
-	if (EventHandler::GetInstance()->GetKeyDown(keyCode) == 1)
+	if (EventHandler::GetInstance().GetKeyDown(keyCode) == 1)
 	{
 		return true;
 	}

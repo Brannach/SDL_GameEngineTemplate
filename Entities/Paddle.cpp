@@ -10,15 +10,15 @@ void Paddle::Update(float delta)
 		return;
 	}
 	IsVisible = true;
-	EventHandler* eventHandler = EventHandler::GetInstance();
+	EventHandler& eventHandler = EventHandler::GetInstance();
 
 	ActorRigidBody.ResetForce();
 
-	if (eventHandler->GetAxisKey(HORIZONTAL) == 1)
+	if (eventHandler.GetAxisKey(HORIZONTAL) == 1)
 	{
 		ActorRigidBody.ApplyForceX(1.0);
 	}
-	if (eventHandler->GetAxisKey(HORIZONTAL) == -1)
+	if (eventHandler.GetAxisKey(HORIZONTAL) == -1)
 	{
 		ActorRigidBody.ApplyForceX(-1.0);
 	}

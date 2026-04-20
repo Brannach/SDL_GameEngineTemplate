@@ -10,10 +10,10 @@ class EventHandler
 {
 public:
 	void Listen();
-	static EventHandler* GetInstance()
+	static EventHandler& GetInstance()
 	{
-		if (EventHandlerInstance != nullptr) return EventHandlerInstance;
-		else return EventHandlerInstance = new EventHandler();
+		static EventHandler EventHandlerInstance;
+		return EventHandlerInstance;
 	}
 	bool GetKeyDown(SDL_Scancode key);
 	int GetAxisKey(AXIS axis);
@@ -23,6 +23,6 @@ private:
 	void KeyUp();
 	void KeyDown();
 	const Uint8* mKeyStates;
-	static EventHandler* EventHandlerInstance;
+	static EventHandler EventHandlerInstance;
 };
 
