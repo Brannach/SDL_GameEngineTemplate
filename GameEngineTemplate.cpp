@@ -4,8 +4,8 @@
 
 int main(int argc, char* argv[])
 {
-    Engine* engine = Engine::GetInstance();
-    engine->Run();
+    Engine& engine = Engine::GetInstance();
+    engine.Run();
 
     return 0;
 }

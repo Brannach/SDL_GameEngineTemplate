@@ -17,13 +17,13 @@ TileLayer::TileLayer(string name, int tileSize, int rowCount, int colCount, Tile
 	{
 		if (mTileSets[i].Sourcefile != "")
 		{
-			TextureRenderer::GetInstance()->Load(mTileSets[i].Name, "resources/Maps/" + mTileSets[i].Sourcefile, Engine::GetInstance()->GetRenderer());
+			TextureRenderer::GetInstance()->Load(mTileSets[i].Name, "resources/Maps/" + mTileSets[i].Sourcefile, Engine::GetInstance().GetRenderer());
 		}
 		else
 		{
 			for (auto tileSource : mTileSets[i].TileSourceMap)
 			{
-				TextureRenderer::GetInstance()->Load(tileSource.second.Name, "Resources/Maps/" + tileSource.second.SourceFile, Engine::GetInstance()->GetRenderer());
+				TextureRenderer::GetInstance()->Load(tileSource.second.Name, "Resources/Maps/" + tileSource.second.SourceFile, Engine::GetInstance().GetRenderer());
 			}
 		}
 	}
@@ -62,14 +62,14 @@ void TileLayer::Render()
 				string tileSetName = tileSet.Name;
 				if (tileSet.TileSourceMap.size() != 0)
 				{
-					Dimension2d mainWindowSize = Engine::GetInstance()->GetMainApplication()->MainWindowDimension;
+					Dimension2d mainWindowSize = Engine::GetInstance().GetMainApplication()->MainWindowDimension;
 					tileSetName = tileSet.TileSourceMap[tileId - 1].Name;
 					int scaledTileWidth = mainWindowSize.width / mTileMap[0].size();
 					int scaledTileHeight = mainWindowSize.height / mTileMap.size();
 					int scaledTileX = col * scaledTileWidth;
 					int scaledTileY = row * scaledTileHeight;
 					Brick* tile = new Brick(Properties(tileSetName, scaledTileX, scaledTileY, scaledTileWidth, scaledTileHeight));
-					Engine::GetInstance()->AddRenderedActor(unique_ptr<Actor>(tile));
+					Engine::GetInstance().AddRenderedActor(unique_ptr<Actor>(tile));
 					
 					//TextureRenderer::GetInstance()->DrawTile(tileSetName, tileSet.TileWidth, tileSet.TileHeight, col * tileSet.TileWidth, row * tileSet.TileHeight, SDL_FLIP_NONE);
 				}

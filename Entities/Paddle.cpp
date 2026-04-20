@@ -3,7 +3,7 @@
 
 void Paddle::Update(float delta)
 {
-	if (Engine::GetInstance()->GetGameplayRules()->GetCurrentGameState() != Running)
+	if (Engine::GetInstance().GetGameplayRules()->GetCurrentGameState() != Running)
 	{
 		IsVisible = false;
 		ResetPosition();

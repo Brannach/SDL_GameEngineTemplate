@@ -20,12 +20,12 @@ using namespace std;
 class Engine
 {
 public:
-	static Engine* GetInstance()
+	static Engine& GetInstance()
 	{
-		if (EngineInstance != nullptr) return EngineInstance;
-		else return EngineInstance = new Engine();
+		static Engine EngineInstance;
+		return EngineInstance;
 	}
-
+	
 	bool Init();
 	void Run();
 	void LoadScene();
@@ -51,7 +51,6 @@ public:
 
 private:
 	unique_ptr<MainApplication> EngineMainApplication;
-	static Engine* EngineInstance;
 	bool IsEngineRunning = true;
 	list<unique_ptr<Actor>> RenderActor;
 	vector<unique_ptr<GameMap>> GameMaps;

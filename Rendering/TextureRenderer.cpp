@@ -39,9 +39,9 @@ void TextureRenderer::DrawAnimationTile(string tilesetID, int tileSize, int x, i
 {
 	SDL_Rect dest = { (int)x, (int)y, tileSize, tileSize };
 	SDL_Rect source = { frame * tileSize, row * tileSize, tileSize, tileSize };
-	SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
-	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 126, 126, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &dest);
+	SDL_RenderCopyEx(Engine::GetInstance().GetRenderer(), TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
+	SDL_SetRenderDrawColor(Engine::GetInstance().GetRenderer(), 126, 126, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(Engine::GetInstance().GetRenderer(), &dest);
 
 }
 
@@ -49,7 +49,7 @@ void TextureRenderer::DrawTile(string tilesetID, int tileWidth, int tileHeight, 
 {
 	SDL_Rect dest = { (int)x, (int)y, tileWidth, tileHeight };
 	SDL_Rect source = { 0, 0, tileWidth, tileHeight };
-	SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
-	SDL_SetRenderDrawColor(Engine::GetInstance()->GetRenderer(), 126, 126, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &dest);
+	SDL_RenderCopyEx(Engine::GetInstance().GetRenderer(), TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
+	SDL_SetRenderDrawColor(Engine::GetInstance().GetRenderer(), 126, 126, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(Engine::GetInstance().GetRenderer(), &dest);
 }

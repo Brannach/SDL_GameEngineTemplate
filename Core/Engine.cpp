@@ -5,8 +5,6 @@
 #include "..\Entities\Health.h"
 #include "..\Core\Ticker.h"
 
-Engine* Engine::EngineInstance = nullptr;
-
 bool Engine::Init()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0 && IMG_Init(IMG_INIT_PNG) != 0)

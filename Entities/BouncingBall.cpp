@@ -4,8 +4,8 @@
 
 void BouncingBall::Update(float delta)
 {
-	Engine* engine = Engine::GetInstance();
-	TemplateGameplayRules* gameRules = engine->GetGameplayRules();
+	Engine& engine = Engine::GetInstance();
+	TemplateGameplayRules* gameRules = engine.GetGameplayRules();
 
 	if (gameRules->GetCurrentGameState() != Running)
 	{
@@ -36,7 +36,7 @@ void BouncingBall::Update(float delta)
 	BoolPair collisionResult;
 
 	//Check collision with bricks
-	const auto& ActorList = engine->GetRenderedActors();
+	const auto& ActorList = engine.GetRenderedActors();
 	for (const auto& actor : ActorList)
 	{
 		if (actor->CanCollide() && actor.get() != this)
@@ -66,7 +66,7 @@ void BouncingBall::Update(float delta)
 				string classType = typeid(*actor).name();
 				if (classType.find("Brick") != string::npos)
 				{
-					engine->RemoveRenderedActor(actor.get());
+					engine.RemoveRenderedActor(actor.get());
 				}
 				return;
 			}

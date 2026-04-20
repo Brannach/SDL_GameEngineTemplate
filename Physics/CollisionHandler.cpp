@@ -8,8 +8,6 @@ CollisionHandler* CollisionHandler::CollisionHandlerInstance = nullptr;
 
 CollisionHandler::CollisionHandler()
 {
-    Engine* engine = Engine::GetInstance();
-
 }
 Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b, Vector2d& centerDistances )
 {
@@ -63,6 +61,6 @@ BoolPair CollisionHandler::CheckAppWallCollision(SDL_Rect object)
 {
 
     bool xOverlap = (object.x < 0) || (object.x + object.w > DEFAULT_SCREEN_WIDTH);
-    bool yOverlap = (object.y < 0) || (object.y + object.h > Engine::GetInstance()->GetGameplayRules()->GetHealthLossLimit());
+    bool yOverlap = (object.y < 0) || (object.y + object.h > Engine::GetInstance().GetGameplayRules()->GetHealthLossLimit());
     return make_tuple(xOverlap, yOverlap);
 }

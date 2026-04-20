@@ -9,7 +9,7 @@ EventHandler::EventHandler()
 
 void EventHandler::Listen()
 {
-	Engine* engine = Engine::GetInstance();
+	Engine& engine = Engine::GetInstance();
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
 	{
@@ -17,7 +17,7 @@ void EventHandler::Listen()
 		{
 		case SDL_QUIT:
 		{
-			engine->Quit();
+			engine.Quit();
 			break;
 		}
 		case SDL_KEYDOWN:
