@@ -14,8 +14,8 @@ bool Engine::Init()
 		SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
 		return false;
 	}
-	EngineMainApplication = new MainApplication("Engine Template");
-	EngineTextPrinter = new TextPrinter(GetRenderer());
+	EngineMainApplication = make_unique<MainApplication>("Engine Template");
+	EngineTextPrinter = make_unique<TextPrinter>(GetRenderer());
 	LoadScene();
 
 	GameplayRules->SetCurrentGameState(Running);
@@ -31,13 +31,13 @@ void Engine::LoadScene()
 	Paddle* GamePaddle = new Paddle(Properties("paddle", 350, 500, 100, 25));
 	Health* PlayerHealth = new Health(Properties("health", 700, 550, 20, 20));
 	
-	RenderActor.push_back(Ball);
-	RenderActor.push_back(GamePaddle);
-	RenderActor.push_back(PlayerHealth);
+	RenderActor.push_back(unique_ptr<Actor>(Ball));
+	RenderActor.push_back(unique_ptr<Actor>(GamePaddle));
+	RenderActor.push_back(unique_ptr<Actor>(PlayerHealth));
 
-	AddGameMap(MapParser::GetInstance()->Load("Map01", "./Resources/Maps/Map01.tmx"));
-	AddGameMap(MapParser::GetInstance()->Load("Map02", "./Resources/Maps/Map02.tmx"));
-	AddGameMap(MapParser::GetInstance()->Load("Map03", "./Resources/Maps/Map03.tmx"));
+	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance()->Load("Map01", "./Resources/Maps/Map01.tmx")));
+	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance()->Load("Map02", "./Resources/Maps/Map02.tmx")));
+	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance()->Load("Map03", "./Resources/Maps/Map03.tmx")));
 	GameMapIterator = GameMaps.begin();
 	(*GameMapIterator)->Render();
 }
@@ -45,7 +45,7 @@ void Engine::LoadScene()
 void Engine::Run()
 {
 	EventHandler* MainEventHandler = EventHandler::GetInstance();
-	GameplayRules = new TemplateGameplayRules(525);
+	GameplayRules = make_unique<TemplateGameplayRules>(TemplateGameplayRules(525));
 	while (IsEngineRunning)
 	{
 		Ticker::GetInstance()->Tick();
@@ -131,7 +131,7 @@ void Engine::Run()
 
 void Engine::Update(float delta)
 {
-	for (Actor* anActor : RenderActor)
+	for (const auto& anActor : RenderActor)
 	{
 		anActor->Update(delta);
 	}
@@ -141,7 +141,7 @@ void Engine::Render()
 {
 	ResetViewport();
 	
-	for (Actor* anActor : RenderActor)
+	for (const auto& anActor : RenderActor)
 	{
 		anActor->Draw();
 	}

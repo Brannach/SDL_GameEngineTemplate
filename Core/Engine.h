@@ -39,34 +39,34 @@ public:
 	int CountActorsByType();
 
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
-	inline MainApplication* GetMainApplication() { return EngineMainApplication; }
+	inline MainApplication* GetMainApplication() { return EngineMainApplication.get(); }
 
-	inline list<Actor*> GetRenderedActors() { return RenderActor; }
-	inline void RemoveRenderedActor(Actor* actor) { RenderActor.remove(actor); }
-	inline void AddRenderedActor(Actor* actor) { RenderActor.push_back(actor); }
+	inline const vector<unique_ptr<Actor>>& GetRenderedActors() { return RenderActor; }
+	inline void RemoveRenderedActor(Actor* actor) { erase_if(RenderActor,[actor](const unique_ptr<Actor>& a) { return a.get() == actor; }); }
+	inline void AddRenderedActor(unique_ptr<Actor> actor) { RenderActor.push_back(move(actor)); }
 	
-	inline void AddGameMap(GameMap* map) { GameMaps.push_back(map); }
+	inline void AddGameMap(unique_ptr<GameMap> map) { GameMaps.push_back(move(map)); }
 
-	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules; }	
+	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules.get(); }	
 
 private:
-	MainApplication* EngineMainApplication;
+	unique_ptr<MainApplication> EngineMainApplication;
 	static Engine* EngineInstance;
 	bool IsEngineRunning = true;
-	list<Actor*> RenderActor;
-	list<GameMap*> GameMaps;
-	list<GameMap*>::iterator GameMapIterator;
-	TemplateGameplayRules* GameplayRules;
-	TextPrinter* EngineTextPrinter;
+	vector<unique_ptr<Actor>> RenderActor;
+	vector<unique_ptr<GameMap>> GameMaps;
+	vector<unique_ptr<GameMap>>::iterator GameMapIterator;
+	unique_ptr<TemplateGameplayRules> GameplayRules;
+	unique_ptr<TextPrinter> EngineTextPrinter;
 };
 
 template <class T>
 int Engine::CountActorsByType()
 {
 	int counter = 0;
-	for (auto actor : RenderActor)
+	for (const auto& actor : RenderActor)
 	{
-		if (dynamic_cast<T*>(actor) != nullptr)
+		if (actor != nullptr)
 		{
 			counter++;
 		}

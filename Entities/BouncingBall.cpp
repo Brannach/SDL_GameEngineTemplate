@@ -36,10 +36,10 @@ void BouncingBall::Update(float delta)
 	BoolPair collisionResult;
 
 	//Check collision with bricks
-	list<Actor*> ActorList = engine->GetRenderedActors();
-	for (Actor* actor : ActorList)
+	const auto& ActorList = engine->GetRenderedActors();
+	for (const auto& actor : ActorList)
 	{
-		if (actor->CanCollide() && actor != this)
+		if (actor->CanCollide() && actor.get() != this)
 		{
 			if (collisionHandler->CheckRectCollision(ActorCollider.Get(), actor->GetCollider().Get()))
 			{
@@ -66,7 +66,7 @@ void BouncingBall::Update(float delta)
 				string classType = typeid(*actor).name();
 				if (classType.find("Brick") != string::npos)
 				{
-					engine->RemoveRenderedActor(actor);
+					engine->RemoveRenderedActor(actor.get());
 				}
 				return;
 			}
