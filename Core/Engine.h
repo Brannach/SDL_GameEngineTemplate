@@ -41,7 +41,7 @@ public:
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	inline MainApplication* GetMainApplication() { return EngineMainApplication.get(); }
 
-	inline const vector<unique_ptr<Actor>>& GetRenderedActors() { return RenderActor; }
+	inline const list<unique_ptr<Actor>>& GetRenderedActors() { return RenderActor; }
 	inline void RemoveRenderedActor(Actor* actor) { erase_if(RenderActor,[actor](const unique_ptr<Actor>& a) { return a.get() == actor; }); }
 	inline void AddRenderedActor(unique_ptr<Actor> actor) { RenderActor.push_back(move(actor)); }
 	
@@ -53,7 +53,7 @@ private:
 	unique_ptr<MainApplication> EngineMainApplication;
 	static Engine* EngineInstance;
 	bool IsEngineRunning = true;
-	vector<unique_ptr<Actor>> RenderActor;
+	list<unique_ptr<Actor>> RenderActor;
 	vector<unique_ptr<GameMap>> GameMaps;
 	vector<unique_ptr<GameMap>>::iterator GameMapIterator;
 	unique_ptr<TemplateGameplayRules> GameplayRules;
