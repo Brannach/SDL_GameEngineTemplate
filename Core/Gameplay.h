@@ -3,6 +3,7 @@ class IGameplayRules
 {
 public:
 	inline void Update() { };
+	virtual ~IGameplayRules() = default;
 };
 
 enum GameState { Initializing, Running, NewLevel, LifeLost, GameOver, Restarting, GameComplete };

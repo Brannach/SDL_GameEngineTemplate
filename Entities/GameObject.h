@@ -43,6 +43,7 @@ public:
 		Origin.X = pr.X;
 		Origin.Y = pr.Y;
 	};
+	~GameObject() = default;
 
 	inline Point2d GetOrigin() { return Origin; }
 	virtual void Draw() = 0;

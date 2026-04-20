@@ -12,6 +12,7 @@ public:
 	virtual void Update() = 0;
 	inline string GetName() { return mName; }
 
+	
 protected:
 	string mName;
 

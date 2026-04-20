@@ -19,6 +19,8 @@ public:
 		ActorRigidBody = RigidBody();
 		ActorRigidBody.SetGravity(DEFAULT_GRAVITY);
 	};
+	
+	~Actor() = default;
 
 	virtual void Draw();
 	virtual void Update(float delta);
