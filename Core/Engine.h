@@ -66,7 +66,7 @@ int Engine::CountActorsByType()
 	int counter = 0;
 	for (const auto& actor : RenderActor)
 	{
-		if (actor != nullptr)
+		if (dynamic_cast<T*>(actor.get()) != nullptr)
 		{
 			counter++;
 		}
