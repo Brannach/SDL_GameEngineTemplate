@@ -6,7 +6,9 @@ void BouncingBall::Update(float delta)
 {
 	Engine& engine = Engine::GetInstance();
 	TemplateGameplayRules* gameRules = engine.GetGameplayRules();
-
+	bool hasCollision = false;
+	Actor* brickToRemove = nullptr;
+	
 	if (gameRules->GetCurrentGameState() != Running)
 	{
 		IsVisible = false;
@@ -32,7 +34,7 @@ void BouncingBall::Update(float delta)
 		return;
 	}
 	IsVisible = true;
-	CollisionHandler* collisionHandler = CollisionHandler::GetInstance();
+	CollisionHandler& collisionHandler = CollisionHandler::GetInstance();
 	BoolPair collisionResult;
 
 	//Check collision with bricks
@@ -41,11 +43,11 @@ void BouncingBall::Update(float delta)
 	{
 		if (actor->CanCollide() && actor.get() != this)
 		{
-			if (collisionHandler->CheckRectCollision(ActorCollider.Get(), actor->GetCollider().Get()))
+			if (collisionHandler.CheckRectCollision(ActorCollider.Get(), actor->GetCollider().Get()))
 			{
 				Vector2d centerValues;
 
-				Vector2d values = collisionHandler->GetCollisionValues(ActorCollider.Get(), actor->GetCollider().Get(), centerValues);
+				Vector2d values = collisionHandler.GetCollisionValues(ActorCollider.Get(), actor->GetCollider().Get(), centerValues);
 				if (values.X < 0) {
 					ObjectTransform.X = LastSafePosition.X;
 					Force.X *= -1;
@@ -66,15 +68,21 @@ void BouncingBall::Update(float delta)
 				string classType = typeid(*actor).name();
 				if (classType.find("Brick") != string::npos)
 				{
-					engine.RemoveRenderedActor(actor.get());
+					brickToRemove = actor.get();					
 				}
-				return;
-			}
+				hasCollision = true;
+				break;
+			}			
 		}
 	}
 
+	if (brickToRemove)
+		engine.RemoveRenderedActor(brickToRemove);
+	if (hasCollision)
+		return;
+	
 	//Check collision with the walls of the window application
-	collisionResult = collisionHandler->CheckAppWallCollision(ActorCollider.Get());
+	collisionResult = collisionHandler.CheckAppWallCollision(ActorCollider.Get());
 	if (get<0>(collisionResult))
 	{
 		//collision with X walls

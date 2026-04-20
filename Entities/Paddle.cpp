@@ -27,7 +27,7 @@ void Paddle::Update(float delta)
 	ObjectTransform.Translate(ActorRigidBody.GetPosition());
 	ActorCollider.Set((int)ObjectTransform.X, (int)ObjectTransform.Y, Width, Height);
 
-	BoolPair collisionResult = CollisionHandler::GetInstance()->CheckAppWallCollision(ActorCollider.Get());
+	BoolPair collisionResult = CollisionHandler::GetInstance().CheckAppWallCollision(ActorCollider.Get());
 	if (get<0>(collisionResult))
 	{
 		//collision with X walls

@@ -3,9 +3,6 @@
 #include "..\Core\MainApplication.h"
 
 using namespace std;
-
-CollisionHandler* CollisionHandler::CollisionHandlerInstance = nullptr;
-
 CollisionHandler::CollisionHandler()
 {
 }

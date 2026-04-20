@@ -18,7 +18,7 @@ void Actor::Draw()
 	if (IsVisible)
 	{
 		Box box = ActorCollider.Get();
-		TextureRenderer::GetInstance()->Draw(TextureId, box, ObjectFlip, Engine::GetInstance().GetRenderer());
+		TextureRenderer::GetInstance().Draw(TextureId, box, ObjectFlip, Engine::GetInstance().GetRenderer());
 	}
 }
 

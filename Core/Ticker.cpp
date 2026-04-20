@@ -2,8 +2,6 @@
 
 #include <SDL.h>
 
-Ticker* Ticker::TickerInstance = nullptr;
-
 Ticker::Ticker()
 {
 }

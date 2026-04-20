@@ -7,14 +7,13 @@ class Ticker
 public:
 	void Tick();
 	inline float GetDeltaTime() { return DeltaTime; }
-	static Ticker* GetInstance()
+	static Ticker& GetInstance()
 	{
-		if (TickerInstance != nullptr) return TickerInstance;
-		else return TickerInstance = new Ticker();
+		static Ticker TickerInstance;
+		return TickerInstance;
 	}
 private:
 	Ticker();
-	static Ticker* TickerInstance;
 	float DeltaTime = 0.0f, LastDelta;
 };
 

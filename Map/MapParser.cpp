@@ -4,7 +4,6 @@
 
 using namespace std;
 
-MapParser* MapParser::sInstance = nullptr;
 GameMap* MapParser::Load(string mapName, string fileName)
 {
 	return Parse(mapName, fileName);

@@ -13,10 +13,10 @@ public:
 	GameMap* Load(string mapName, string fileName);
 	void Clean();
 
-	inline static MapParser* GetInstance()
+	inline static MapParser& GetInstance()
 	{
-		if (sInstance != nullptr) return sInstance;
-		else return sInstance = new MapParser();
+		static MapParser MapParserInstance;
+		return MapParserInstance;
 	}
 
 private:
@@ -25,7 +25,6 @@ private:
 	Tileset ParseTileset(TiXmlElement* xmlTileset);
 	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tilesetList, int tileSize, int rowCount, int colCount);
 
-	static MapParser* sInstance;
 	map<string, GameMap*> mMapDict;
 };
 

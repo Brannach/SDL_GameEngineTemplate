@@ -1,6 +1,5 @@
 #include "TextureRenderer.h"
 
-TextureRenderer* TextureRenderer::TextureRendererInstance = nullptr;
 bool TextureRenderer::Load(string textureId, string filename, SDL_Renderer* renderer)
 {
 	if (renderer == nullptr)

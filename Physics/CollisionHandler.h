@@ -17,15 +17,14 @@ public:
 
 	BoolPair CheckAppWallCollision(SDL_Rect object);
 
-	static CollisionHandler* GetInstance()
+	static CollisionHandler& GetInstance()
 	{
-		if (CollisionHandlerInstance != nullptr) return CollisionHandlerInstance;
-		else return CollisionHandlerInstance = new CollisionHandler();
+		static CollisionHandler CollisionHandlerInstance;
+		return CollisionHandlerInstance;
 	}
 
 private:
 	CollisionHandler();
-
-	static CollisionHandler* CollisionHandlerInstance;
+	
 	int mColCount, mRowCount, mTileSize;
 };

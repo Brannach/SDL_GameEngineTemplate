@@ -14,6 +14,6 @@ void Health::Draw()
 	for (int i = 0; i < currentHealth; i++)
 	{
 		box.x += box.w + 5;
-		TextureRenderer::GetInstance()->Draw(TextureId, box, ObjectFlip, Engine::GetInstance().GetRenderer());
+		TextureRenderer::GetInstance().Draw(TextureId, box, ObjectFlip, Engine::GetInstance().GetRenderer());
 	}
 }

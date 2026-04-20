@@ -17,13 +17,13 @@ TileLayer::TileLayer(string name, int tileSize, int rowCount, int colCount, Tile
 	{
 		if (mTileSets[i].Sourcefile != "")
 		{
-			TextureRenderer::GetInstance()->Load(mTileSets[i].Name, "resources/Maps/" + mTileSets[i].Sourcefile, Engine::GetInstance().GetRenderer());
+			TextureRenderer::GetInstance().Load(mTileSets[i].Name, "resources/Maps/" + mTileSets[i].Sourcefile, Engine::GetInstance().GetRenderer());
 		}
 		else
 		{
 			for (auto tileSource : mTileSets[i].TileSourceMap)
 			{
-				TextureRenderer::GetInstance()->Load(tileSource.second.Name, "Resources/Maps/" + tileSource.second.SourceFile, Engine::GetInstance().GetRenderer());
+				TextureRenderer::GetInstance().Load(tileSource.second.Name, "Resources/Maps/" + tileSource.second.SourceFile, Engine::GetInstance().GetRenderer());
 			}
 		}
 	}
@@ -74,7 +74,7 @@ void TileLayer::Render()
 					//TextureRenderer::GetInstance()->DrawTile(tileSetName, tileSet.TileWidth, tileSet.TileHeight, col * tileSet.TileWidth, row * tileSet.TileHeight, SDL_FLIP_NONE);
 				}
 				else
-					TextureRenderer::GetInstance()->DrawAnimationTile(tileSetName, tileSet.TileSize, col * tileSet.TileWidth, row * tileSet.TileHeight, tileRow, tileCol, SDL_FLIP_NONE);
+					TextureRenderer::GetInstance().DrawAnimationTile(tileSetName, tileSet.TileSize, col * tileSet.TileWidth, row * tileSet.TileHeight, tileRow, tileCol, SDL_FLIP_NONE);
 			}
 		}
 	}

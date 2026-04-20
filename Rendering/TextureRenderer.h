@@ -13,10 +13,10 @@ using namespace std;
 class TextureRenderer
 {
 public:
-	static TextureRenderer* GetInstance()
+	static TextureRenderer& GetInstance()
 	{
-		if (TextureRendererInstance != nullptr) return TextureRendererInstance;
-		else return TextureRendererInstance = new TextureRenderer();
+		static TextureRenderer TextureRendererInstance;
+		return TextureRendererInstance;
 	}
 	TextureRenderer() {};
 	bool Load(string textureId, string filename, SDL_Renderer* renderer);
@@ -27,6 +27,5 @@ public:
 
 private:
 	map<string, SDL_Texture*> TextureMap;
-	static TextureRenderer* TextureRendererInstance;
 };
 

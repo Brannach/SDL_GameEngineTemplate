@@ -22,9 +22,9 @@ bool Engine::Init()
 
 void Engine::LoadScene()
 {
-	TextureRenderer::GetInstance()->Load("ball", "./Resources/Actors/ball_marble.png", GetRenderer());
-	TextureRenderer::GetInstance()->Load("paddle", "./Resources/Actors/paddle.png", GetRenderer());
-	TextureRenderer::GetInstance()->Load("health", "./Resources/Actors/health.png", GetRenderer());
+	TextureRenderer::GetInstance().Load("ball", "./Resources/Actors/ball_marble.png", GetRenderer());
+	TextureRenderer::GetInstance().Load("paddle", "./Resources/Actors/paddle.png", GetRenderer());
+	TextureRenderer::GetInstance().Load("health", "./Resources/Actors/health.png", GetRenderer());
 	BouncingBall* Ball = new BouncingBall(Properties("ball", 400, 475, 24, 24));
 	Paddle* GamePaddle = new Paddle(Properties("paddle", 350, 500, 100, 25));
 	Health* PlayerHealth = new Health(Properties("health", 700, 550, 20, 20));
@@ -33,9 +33,9 @@ void Engine::LoadScene()
 	RenderActor.push_back(unique_ptr<Actor>(GamePaddle));
 	RenderActor.push_back(unique_ptr<Actor>(PlayerHealth));
 
-	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance()->Load("Map01", "./Resources/Maps/Map01.tmx")));
-	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance()->Load("Map02", "./Resources/Maps/Map02.tmx")));
-	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance()->Load("Map03", "./Resources/Maps/Map03.tmx")));
+	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance().Load("Map01", "./Resources/Maps/Map01.tmx")));
+	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance().Load("Map02", "./Resources/Maps/Map02.tmx")));
+	AddGameMap(unique_ptr<GameMap>(MapParser::GetInstance().Load("Map03", "./Resources/Maps/Map03.tmx")));
 	GameMapIterator = GameMaps.begin();
 	(*GameMapIterator)->Render();
 }
@@ -46,8 +46,8 @@ void Engine::Run()
 	GameplayRules = make_unique<TemplateGameplayRules>(TemplateGameplayRules(525));
 	while (IsEngineRunning)
 	{
-		Ticker::GetInstance()->Tick();
-		float delta = Ticker::GetInstance()->GetDeltaTime();
+		Ticker::GetInstance().Tick();
+		float delta = Ticker::GetInstance().GetDeltaTime();
 		MainEventHandler.Listen();
 		switch (GameplayRules->GetCurrentGameState())
 		{
