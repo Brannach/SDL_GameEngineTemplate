@@ -49,6 +49,5 @@ private:
 	bool IsEngineRunning = true;
 	unique_ptr<TemplateGameplayRules> GameplayRules;
 	unique_ptr<TextPrinter> EngineTextPrinter;
-	int mCurrentLevelIndex = 0;
 	unique_ptr<LevelManager> mLevelManager;
 };

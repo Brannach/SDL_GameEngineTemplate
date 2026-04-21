@@ -2,6 +2,7 @@
 
 #include "..\Entities\Brick.h"
 #include "..\Core\Ticker.h"
+#include "GameStateMachine.h"
 
 bool Engine::Init()
 {
@@ -27,77 +28,14 @@ void Engine::Run()
 {
 	EventHandler& MainEventHandler = EventHandler::GetInstance();
 	GameplayRules = make_unique<TemplateGameplayRules>(TemplateGameplayRules(525));
+	Init();
+	GameStateMachine stateMachine(*this, *mLevelManager, *GameplayRules);
 	while (IsEngineRunning)
 	{
 		Ticker::GetInstance().Tick();
 		float delta = Ticker::GetInstance().GetDeltaTime();
 		MainEventHandler.Listen();
-		switch (GameplayRules->GetCurrentGameState())
-		{
-		case Initializing:
-		{
-			Init();			
-			break;
-		}
-
-		case Running:
-		{	
-			Update(delta);
-			Render();
-			if (mLevelManager->GetCurrentLevel().IsComplete())
-			{
-				GameplayRules->SetCurrentGameState(NewLevel);
-			}
-			break;
-		}
-		
-		case LifeLost:
-		{
-			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "Life Lost! Press space key", 250, 520))
-			{
-				GameplayRules->SetCurrentGameState(Running);
-			}
-			break;
-		}
-		case GameOver:
-		{
-			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "Game Over!", 310, 520))
-			{
-				GameplayRules->SetCurrentGameState(Restarting);
-			}
-			break;
-		}
-		case NewLevel:
-		{			
-			Update(delta);
-			ResetViewport();
-			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
-			{
-				if (mLevelManager->AdvanceLevel())
-				{
-					GameplayRules->SetCurrentGameState(Running);
-				}
-				else
-				{
-					GameplayRules->SetCurrentGameState(GameComplete);
-				}
-			}
-			break;			
-		}
-		case Restarting:
-		{
-			mLevelManager->Restart();
-			GameplayRules->SetHealth(3);
-			GameplayRules->SetCurrentGameState(Running);
-			break;
-		}
-		case GameComplete:
-		{
-			ResetViewport();
-			DisplayModalMessage(SDL_SCANCODE_SPACE, "You beat it!", 310, 520);
-			break;
-		}
-		}
+		stateMachine.Update(delta);
 	}
 }
 
