@@ -1,9 +1,11 @@
 #pragma once
 #include "Layer.h"
+#include "../Entities/Actor.h"
 
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 
 using namespace std;
 
@@ -31,6 +33,7 @@ public:
 	TileLayer(string name, int tileSize, int rowCount, int colCount, TileMap tileMap, TilesetList tileSetList);
 	virtual void Render();
 	virtual void Update();
+	vector<unique_ptr<Actor>> SpawnActors();
 	inline TileMap GetTileMap() { return mTileMap; }
 
 private:
