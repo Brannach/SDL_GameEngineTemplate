@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\BreakoutLevel.cpp" />
     <ClCompile Include="Entities\Brick.cpp" />
     <ClCompile Include="Entities\Actor.cpp" />
     <ClCompile Include="Entities\BouncingBall.cpp" />
@@ -166,6 +167,8 @@
     <ClCompile Include="tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\BreakoutLevel.h" />
+    <ClInclude Include="Core\ILevel.h" />
     <ClInclude Include="Entities\Brick.h" />
     <ClInclude Include="Entities\BouncingBall.h" />
     <ClInclude Include="Entities\Actor.h" />
