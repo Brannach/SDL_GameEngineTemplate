@@ -1,9 +1,15 @@
 #include "Engine.h"
-#include "..\Entities\BouncingBall.h"
+
+#include "BreakoutLevel.h"
 #include "..\Entities\Brick.h"
-#include "..\Entities\Paddle.h"
-#include "..\Entities\Health.h"
 #include "..\Core\Ticker.h"
+
+static const std::pair<const char*, const char*> sLevels[] = {
+	{"Map01", "./Resources/Maps/Map01.tmx"},
+	{"Map02", "./Resources/Maps/Map02.tmx"},
+	{"Map03", "./Resources/Maps/Map03.tmx"},
+};
+static const int sLevelCount = static_cast<int>(std::size(sLevels));
 
 bool Engine::Init()
 {
@@ -14,26 +20,15 @@ bool Engine::Init()
 	}
 	EngineMainApplication = make_unique<MainApplication>("Engine Template");
 	EngineTextPrinter = make_unique<TextPrinter>(GetRenderer());
-	LoadScene();
-
+	LoadLevel();
 	GameplayRules->SetCurrentGameState(Running);
 	return true;
 }
 
-void Engine::LoadScene()
+void Engine::LoadLevel()
 {
-	TextureRenderer::GetInstance().Load("ball", "./Resources/Actors/ball_marble.png", GetRenderer());
-	TextureRenderer::GetInstance().Load("paddle", "./Resources/Actors/paddle.png", GetRenderer());
-	TextureRenderer::GetInstance().Load("health", "./Resources/Actors/health.png", GetRenderer());
-	RenderActor.push_back(make_unique<BouncingBall>(Properties("ball", 400, 475, 24, 24)));
-	RenderActor.push_back(make_unique<Paddle>(Properties("paddle", 350, 500, 100, 25)));
-	RenderActor.push_back(make_unique<Health>(Properties("health", 700, 550, 20, 20)));
-
-	AddGameMap(MapParser::GetInstance().Load("Map01", "./Resources/Maps/Map01.tmx"));
-	AddGameMap(MapParser::GetInstance().Load("Map02", "./Resources/Maps/Map02.tmx"));
-	AddGameMap(MapParser::GetInstance().Load("Map03", "./Resources/Maps/Map03.tmx"));
-	GameMapIterator = GameMaps.begin();
-	(*GameMapIterator)->Render();
+	CurrentLevel = make_unique<BreakoutLevel>(sLevels[mCurrentLevelIndex].first,sLevels[mCurrentLevelIndex].second);
+	CurrentLevel->Load();
 }
 
 void Engine::Run()
@@ -57,7 +52,7 @@ void Engine::Run()
 		{	
 			Update(delta);
 			Render();
-			if (CountActorsByType<Brick>() == 0)
+			if (CurrentLevel->IsComplete())
 			{
 				GameplayRules->SetCurrentGameState(NewLevel);
 			}
@@ -82,32 +77,29 @@ void Engine::Run()
 		}
 		case NewLevel:
 		{			
-			//Special case for the last level
-			if (next(GameMapIterator) == GameMaps.end())
-			{
-				GameplayRules->SetCurrentGameState(GameComplete);
-				break;
-			}
 			Update(delta);
 			ResetViewport();
 			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
 			{
-				advance(GameMapIterator, 1);
-				if (GameMapIterator != GameMaps.end())
+				mCurrentLevelIndex++;
+				if (mCurrentLevelIndex >= sLevelCount)
 				{
-					GameplayRules->SetCurrentGameState(Restarting);
-					break;
+					GameplayRules->SetCurrentGameState(GameComplete);
+				}
+				else
+				{
+					CurrentLevel->Unload();
+					LoadLevel();
+					GameplayRules->SetCurrentGameState(Running);
 				}
 			}
-			
-			break;
+			break;			
 		}
 		case Restarting:
 		{
-			if (GameMapIterator != GameMaps.end())
-			{
-				(*GameMapIterator)->Render();
-			}
+			CurrentLevel->Unload();
+			mCurrentLevelIndex = 0;
+			LoadLevel();
 			GameplayRules->SetHealth(3);
 			GameplayRules->SetCurrentGameState(Running);
 			break;
@@ -116,7 +108,6 @@ void Engine::Run()
 		{
 			ResetViewport();
 			DisplayModalMessage(SDL_SCANCODE_SPACE, "You beat it!", 310, 520);
-			
 			break;
 		}
 		}
@@ -125,20 +116,13 @@ void Engine::Run()
 
 void Engine::Update(float delta)
 {
-	for (const auto& anActor : RenderActor)
-	{
-		anActor->Update(delta);
-	}
+	CurrentLevel->Update(delta);
 }
 
 void Engine::Render()
 {
 	ResetViewport();
-	
-	for (const auto& anActor : RenderActor)
-	{
-		anActor->Draw();
-	}
+	CurrentLevel->Render();
 	SDL_RenderPresent(GetRenderer());
 }
 

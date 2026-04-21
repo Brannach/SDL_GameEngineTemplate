@@ -13,4 +13,6 @@ public:
     virtual void Render() = 0;
     virtual bool IsComplete() = 0;
     virtual const std::list<std::unique_ptr<Actor>>& GetActors() = 0;
+    virtual void AddActor(std::unique_ptr<Actor> actor) = 0;
+    virtual void RemoveActor(Actor* actor) = 0;
 };
