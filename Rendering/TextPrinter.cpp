@@ -16,8 +16,6 @@ TextPrinter::~TextPrinter()
 {
 	SDL_DestroyTexture(Text);
 	Text = nullptr;
-	SDL_DestroyRenderer(ImageRenderer);
-	ImageRenderer = nullptr;
 }
 
 void TextPrinter::PrintText(string text, int x, int y)

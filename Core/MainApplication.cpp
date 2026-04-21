@@ -21,6 +21,7 @@ bool MainApplication::CreateApplication(string windowName, int width, int height
 
 bool MainApplication::DestroyApplication()
 {
+	SDL_DestroyRenderer(MainWindowRenderer);
 	SDL_DestroyWindow(MainWindow);
 	return true;
 }

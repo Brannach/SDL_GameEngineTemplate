@@ -4,7 +4,7 @@
 
 using namespace std;
 
-GameMap* MapParser::Load(string mapName, string fileName)
+unique_ptr<GameMap> MapParser::Load(string mapName, string fileName)
 {
 	return Parse(mapName, fileName);
 }
@@ -18,7 +18,7 @@ MapParser::MapParser()
 {
 }
 
-GameMap* MapParser::Parse(string mapId, string sourceFile)
+unique_ptr<GameMap> MapParser::Parse(string mapId, string sourceFile)
 {
 	TiXmlDocument xmlDoc;
 	xmlDoc.LoadFile(sourceFile);
@@ -55,7 +55,7 @@ GameMap* MapParser::Parse(string mapId, string sourceFile)
 		}
 	}
 	mMapDict[mapId] = gameMap.get();
-	return gameMap.release();
+	return gameMap;
 }
 
 Tileset MapParser::ParseTileset(TiXmlElement* xmlTileset)

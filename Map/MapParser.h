@@ -10,7 +10,7 @@
 class MapParser
 {
 public:
-	GameMap* Load(string mapName, string fileName);
+	unique_ptr<GameMap> Load(string mapName, string fileName);
 	void Clean();
 
 	inline static MapParser& GetInstance()
@@ -21,7 +21,7 @@ public:
 
 private:
 	MapParser();
-	GameMap* Parse(string mapId, string sourceFile);
+	unique_ptr<GameMap> Parse(string mapId, string sourceFile);
 	Tileset ParseTileset(TiXmlElement* xmlTileset);
 	unique_ptr<TileLayer> ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tilesetList, int tileSize, int rowCount, int colCount);
 
