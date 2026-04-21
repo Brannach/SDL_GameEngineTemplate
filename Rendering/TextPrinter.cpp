@@ -16,6 +16,9 @@ TextPrinter::~TextPrinter()
 {
 	SDL_DestroyTexture(Text);
 	Text = nullptr;
+	TTF_CloseFont(Font);
+	Font = nullptr;
+	TTF_Quit();
 }
 
 void TextPrinter::PrintText(string text, int x, int y)

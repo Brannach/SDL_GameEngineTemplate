@@ -24,7 +24,6 @@ public:
 private:
 	TTF_Font* Font;
 	SDL_Color FontColor;
-	SDL_Surface* TextSurface;
 	SDL_Texture* Text;
 	SDL_Renderer* ImageRenderer;
 	SDL_Rect TextRect = {0, 0, 0, 0};

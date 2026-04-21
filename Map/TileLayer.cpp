@@ -68,9 +68,9 @@ void TileLayer::Render()
 					int scaledTileHeight = mainWindowSize.height / mTileMap.size();
 					int scaledTileX = col * scaledTileWidth;
 					int scaledTileY = row * scaledTileHeight;
-					Brick* tile = new Brick(Properties(tileSetName, scaledTileX, scaledTileY, scaledTileWidth, scaledTileHeight));
-					Engine::GetInstance().AddRenderedActor(unique_ptr<Actor>(tile));
+					Engine::GetInstance().AddRenderedActor(make_unique<Brick>(Properties(tileSetName, scaledTileX, scaledTileY, scaledTileWidth, scaledTileHeight)));
 					
+					//Draws a box around the tile
 					//TextureRenderer::GetInstance()->DrawTile(tileSetName, tileSet.TileWidth, tileSet.TileHeight, col * tileSet.TileWidth, row * tileSet.TileHeight, SDL_FLIP_NONE);
 				}
 				else

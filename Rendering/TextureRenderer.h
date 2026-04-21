@@ -19,6 +19,11 @@ public:
 		return TextureRendererInstance;
 	}
 	TextureRenderer() {};
+	~TextureRenderer()
+	{
+		for (auto& [key, texture] : TextureMap)
+			SDL_DestroyTexture(texture);
+	}
 	bool Load(string textureId, string filename, SDL_Renderer* renderer);
 	void Draw(string textureId, SDL_Rect position, SDL_RendererFlip flip, SDL_Renderer* renderer);
 	void DrawTile(string tilesetID, int tileWidth, int tileHeight, int x, int y, SDL_RendererFlip flip);
