@@ -1,15 +1,7 @@
 #include "Engine.h"
 
-#include "BreakoutLevel.h"
 #include "..\Entities\Brick.h"
 #include "..\Core\Ticker.h"
-
-static const std::pair<const char*, const char*> sLevels[] = {
-	{"Map01", "./Resources/Maps/Map01.tmx"},
-	{"Map02", "./Resources/Maps/Map02.tmx"},
-	{"Map03", "./Resources/Maps/Map03.tmx"},
-};
-static const int sLevelCount = static_cast<int>(std::size(sLevels));
 
 bool Engine::Init()
 {
@@ -20,15 +12,15 @@ bool Engine::Init()
 	}
 	EngineMainApplication = make_unique<MainApplication>("Engine Template");
 	EngineTextPrinter = make_unique<TextPrinter>(GetRenderer());
-	LoadLevel();
+	SetupLevels();
 	GameplayRules->SetCurrentGameState(Running);
 	return true;
 }
 
-void Engine::LoadLevel()
+void Engine::SetupLevels()
 {
-	CurrentLevel = make_unique<BreakoutLevel>(sLevels[mCurrentLevelIndex].first,sLevels[mCurrentLevelIndex].second);
-	CurrentLevel->Load();
+	mLevelManager = make_unique<LevelManager>();
+	mLevelManager->LoadCurrent();
 }
 
 void Engine::Run()
@@ -52,7 +44,7 @@ void Engine::Run()
 		{	
 			Update(delta);
 			Render();
-			if (CurrentLevel->IsComplete())
+			if (mLevelManager->GetCurrentLevel().IsComplete())
 			{
 				GameplayRules->SetCurrentGameState(NewLevel);
 			}
@@ -81,25 +73,20 @@ void Engine::Run()
 			ResetViewport();
 			if (DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
 			{
-				mCurrentLevelIndex++;
-				if (mCurrentLevelIndex >= sLevelCount)
+				if (mLevelManager->AdvanceLevel())
 				{
-					GameplayRules->SetCurrentGameState(GameComplete);
+					GameplayRules->SetCurrentGameState(Running);
 				}
 				else
 				{
-					CurrentLevel->Unload();
-					LoadLevel();
-					GameplayRules->SetCurrentGameState(Running);
+					GameplayRules->SetCurrentGameState(GameComplete);
 				}
 			}
 			break;			
 		}
 		case Restarting:
 		{
-			CurrentLevel->Unload();
-			mCurrentLevelIndex = 0;
-			LoadLevel();
+			mLevelManager->Restart();
 			GameplayRules->SetHealth(3);
 			GameplayRules->SetCurrentGameState(Running);
 			break;
@@ -116,13 +103,13 @@ void Engine::Run()
 
 void Engine::Update(float delta)
 {
-	CurrentLevel->Update(delta);
+	mLevelManager->GetCurrentLevel().Update(delta);
 }
 
 void Engine::Render()
 {
 	ResetViewport();
-	CurrentLevel->Render();
+	mLevelManager->GetCurrentLevel().Render();
 	SDL_RenderPresent(GetRenderer());
 }
 

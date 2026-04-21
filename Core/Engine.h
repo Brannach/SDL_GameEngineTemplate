@@ -14,6 +14,7 @@
 #include "..\Entities\Actor.h"
 #include "Gameplay.h"
 #include "ILevel.h"
+#include "LevelManager.h"
 #include "..\Rendering\TextPrinter.h"
 
 using namespace std;
@@ -29,7 +30,7 @@ public:
 	
 	bool Init();
 	void Run();
-	void LoadLevel();
+	void SetupLevels();
 	void Update(float delta);
 	void Render();
 	void ResetViewport();
@@ -38,9 +39,9 @@ public:
 
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	inline MainApplication* GetMainApplication() { return EngineMainApplication.get(); }
-	inline void AddRenderedActor(unique_ptr<Actor> actor) { CurrentLevel->AddActor(move(actor)); }
-	inline void RemoveRenderedActor(Actor* actor)          { CurrentLevel->RemoveActor(actor); }
-	inline const list<unique_ptr<Actor>>& GetRenderedActors() { return CurrentLevel->GetActors(); }
+	inline void AddRenderedActor(unique_ptr<Actor> actor) { mLevelManager->GetCurrentLevel().AddActor(move(actor)); }
+	inline void RemoveRenderedActor(Actor* actor)          { mLevelManager->GetCurrentLevel().RemoveActor(actor); }
+	inline const list<unique_ptr<Actor>>& GetRenderedActors() { return mLevelManager->GetCurrentLevel().GetActors(); }
 	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules.get(); }	
 
 private:
@@ -49,5 +50,5 @@ private:
 	unique_ptr<TemplateGameplayRules> GameplayRules;
 	unique_ptr<TextPrinter> EngineTextPrinter;
 	int mCurrentLevelIndex = 0;
-	unique_ptr<ILevel> CurrentLevel;
+	unique_ptr<LevelManager> mLevelManager;
 };
