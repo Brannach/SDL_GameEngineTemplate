@@ -25,6 +25,6 @@ private:
 	Tileset ParseTileset(TiXmlElement* xmlTileset);
 	unique_ptr<TileLayer> ParseTileLayer(TiXmlElement* xmlLayer, TilesetList tilesetList, int tileSize, int rowCount, int colCount);
 
-	map<string, GameMap*> mMapDict;
+	//map<string, GameMap*> mMapDict;
 };
 

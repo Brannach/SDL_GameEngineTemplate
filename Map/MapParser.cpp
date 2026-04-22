@@ -11,7 +11,7 @@ unique_ptr<GameMap> MapParser::Load(string mapName, string fileName)
 
 void MapParser::Clean()
 {
-	mMapDict.clear();
+	//mMapDict.clear();
 }
 
 MapParser::MapParser()
@@ -54,7 +54,7 @@ unique_ptr<GameMap> MapParser::Parse(string mapId, string sourceFile)
 			gameMap->mMapLayers.push_back(unique_ptr<Layer>(move(tileLayer)));
 		}
 	}
-	mMapDict[mapId] = gameMap.get();
+	//mMapDict[mapId] = gameMap.get();
 	return gameMap;
 }
 

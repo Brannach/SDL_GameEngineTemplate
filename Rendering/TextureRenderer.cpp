@@ -2,6 +2,9 @@
 
 bool TextureRenderer::Load(string textureId, string filename, SDL_Renderer* renderer)
 {
+	if (TextureMap.count(textureId))
+		return true;
+	
 	if (renderer == nullptr)
 	{
 		SDL_Log("Invalid renderer");
