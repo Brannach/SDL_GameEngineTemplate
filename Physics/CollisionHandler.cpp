@@ -1,5 +1,5 @@
 #include "CollisionHandler.h"
-#include "..\Core\Engine.h"
+//#include "..\Core\Engine.h"
 #include "..\Core\MainApplication.h"
 #include "..\Entities\Actor.h"
 
@@ -60,7 +60,7 @@ BoolPair CollisionHandler::CheckAppWallCollision(SDL_Rect object)
 {
 
     bool xOverlap = (object.x < 0) || (object.x + object.w > DEFAULT_SCREEN_WIDTH);
-    bool yOverlap = (object.y < 0) || (object.y + object.h > Engine::GetInstance().GetGameplayRules()->GetHealthLossLimit());
+    bool yOverlap = (object.y < 0);
     return make_tuple(xOverlap, yOverlap);
 }
 

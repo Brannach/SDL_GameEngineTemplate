@@ -3,7 +3,6 @@
 #include <SDL_image.h>
 
 #include "EventHandler.h"
-#include "..\Entities\Brick.h"
 #include "..\Core\Ticker.h"
 #include "GameStateMachine.h"
 
