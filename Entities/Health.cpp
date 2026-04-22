@@ -1,5 +1,6 @@
 #include "Health.h"
 #include "..\Core\Engine.h"
+#include "..\Rendering\TextureRenderer.h"
 
 void Health::Update(float delta)
 {

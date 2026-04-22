@@ -1,21 +1,15 @@
 #pragma once
 
 #include <list>
-#include <typeinfo>
-
 #include <SDL.h>
-#include <SDL_image.h>
 
-#include "EventHandler.h"
 #include "MainApplication.h"
-#include "..\Map\GameMap.h"
 #include "..\Map\MapParser.h"
-#include "..\Rendering\TextureRenderer.h"
 #include "..\Entities\Actor.h"
 #include "Gameplay.h"
 #include "ILevel.h"
 #include "LevelManager.h"
-#include "..\Rendering\TextPrinter.h"
+#include "..\Rendering\ViewRenderer.h"
 
 using namespace std;
 
@@ -32,10 +26,7 @@ public:
 	void Run();
 	void SetupLevels();
 	void Update(float delta);
-	void Render();
-	void ResetViewport();
 	void Quit();
-	bool DisplayModalMessage(SDL_Scancode keyCode, string message, int x, int y);
 
 	inline SDL_Renderer* GetRenderer() { return EngineMainApplication->MainWindowRenderer; }
 	inline MainApplication* GetMainApplication() { return EngineMainApplication.get(); }
@@ -43,11 +34,12 @@ public:
 	inline void RemoveRenderedActor(Actor* actor)          { mLevelManager->GetCurrentLevel().RemoveActor(actor); }
 	inline const list<unique_ptr<Actor>>& GetRenderedActors() { return mLevelManager->GetCurrentLevel().GetActors(); }
 	inline TemplateGameplayRules* GetGameplayRules() { return GameplayRules.get(); }	
-
+	inline ViewRenderer& GetViewRenderer() { return *mViewRenderer; }
+	
 private:
 	unique_ptr<MainApplication> EngineMainApplication;
 	bool IsEngineRunning = true;
 	unique_ptr<TemplateGameplayRules> GameplayRules;
-	unique_ptr<TextPrinter> EngineTextPrinter;
 	unique_ptr<LevelManager> mLevelManager;
+	unique_ptr<ViewRenderer> mViewRenderer;
 };

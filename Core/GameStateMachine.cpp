@@ -2,8 +2,8 @@
 #include "Engine.h"
 #include "LevelManager.h"
 
-GameStateMachine::GameStateMachine(Engine& engine, LevelManager& levelManager, TemplateGameplayRules& rules)
-    : mEngine(engine), mLevelManager(levelManager), mRules(rules) {}
+GameStateMachine::GameStateMachine(Engine& engine, LevelManager& levelManager, ViewRenderer& viewRenderer, TemplateGameplayRules& rules)
+    : mEngine(engine), mLevelManager(levelManager), mViewRenderer(viewRenderer), mRules(rules) {}
 
 void GameStateMachine::Update(float delta)
 {
@@ -17,28 +17,28 @@ void GameStateMachine::Update(float delta)
     case Running:
     {
         mEngine.Update(delta);
-        mEngine.Render();
+        mViewRenderer.Render();
         if (mLevelManager.IsCurrentComplete())
             mRules.SetCurrentGameState(NewLevel);
         break;
     }
     case LifeLost:
     {
-        if (mEngine.DisplayModalMessage(SDL_SCANCODE_SPACE, "Life Lost! Press space key", 250, 520))
+        if (mViewRenderer.DisplayModalMessage(SDL_SCANCODE_SPACE, "Life Lost! Press space key", 250, 520))
             mRules.SetCurrentGameState(Running);
         break;
     }
     case GameOver:
     {
-        if (mEngine.DisplayModalMessage(SDL_SCANCODE_SPACE, "Game Over!", 310, 520))
+        if (mViewRenderer.DisplayModalMessage(SDL_SCANCODE_SPACE, "Game Over!", 310, 520))
             mRules.SetCurrentGameState(Restarting);
         break;
     }
     case NewLevel:
     {
         mEngine.Update(delta);
-        mEngine.ResetViewport();
-        if (mEngine.DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
+        mViewRenderer.ResetViewport();
+        if (mViewRenderer.DisplayModalMessage(SDL_SCANCODE_SPACE, "New Level Unlocked!", 250, 520))
         {
             if (mLevelManager.AdvanceLevel())
                 mRules.SetCurrentGameState(Running);
@@ -56,8 +56,8 @@ void GameStateMachine::Update(float delta)
     }
     case GameComplete:
     {
-        mEngine.ResetViewport();
-        mEngine.DisplayModalMessage(SDL_SCANCODE_SPACE, "You beat it!", 310, 520);
+        mViewRenderer.ResetViewport();
+        mViewRenderer.DisplayModalMessage(SDL_SCANCODE_SPACE, "You beat it!", 310, 520);
         break;
     }
     }

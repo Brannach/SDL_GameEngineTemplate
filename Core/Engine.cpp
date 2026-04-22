@@ -1,5 +1,8 @@
 #include "Engine.h"
 
+#include <SDL_image.h>
+
+#include "EventHandler.h"
 #include "..\Entities\Brick.h"
 #include "..\Core\Ticker.h"
 #include "GameStateMachine.h"
@@ -12,8 +15,9 @@ bool Engine::Init()
 		return false;
 	}
 	EngineMainApplication = make_unique<MainApplication>("Engine Template");
-	EngineTextPrinter = make_unique<TextPrinter>(GetRenderer());
 	SetupLevels();
+	mViewRenderer = make_unique<ViewRenderer>(GetRenderer(), *mLevelManager);
+	
 	GameplayRules->SetCurrentGameState(Running);
 	return true;
 }
@@ -29,7 +33,7 @@ void Engine::Run()
 	EventHandler& MainEventHandler = EventHandler::GetInstance();
 	GameplayRules = make_unique<TemplateGameplayRules>(TemplateGameplayRules(525));
 	Init();
-	GameStateMachine stateMachine(*this, *mLevelManager, *GameplayRules);
+	GameStateMachine stateMachine(*this, *mLevelManager, *mViewRenderer, *GameplayRules);
 	while (IsEngineRunning)
 	{
 		Ticker::GetInstance().Tick();
@@ -44,32 +48,8 @@ void Engine::Update(float delta)
 	mLevelManager->GetCurrentLevel().Update(delta);
 }
 
-void Engine::Render()
-{
-	ResetViewport();
-	mLevelManager->GetCurrentLevel().Render();
-	SDL_RenderPresent(GetRenderer());
-}
-
-void Engine::ResetViewport()
-{
-	SDL_SetRenderDrawColor(GetRenderer(), 35, 35, 35, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(GetRenderer());
-}
-
 void Engine::Quit()
 {
 	if (EngineMainApplication != nullptr) EngineMainApplication->DestroyApplication();
 	IsEngineRunning = false;
-}
-
-bool Engine::DisplayModalMessage(SDL_Scancode keyCode, string message, int x, int y)
-{
-	if (EventHandler::GetInstance().GetKeyDown(keyCode) == 1)
-	{
-		return true;
-	}
-	EngineTextPrinter->PrintText(message, x, y);
-	SDL_RenderPresent(GetRenderer());
-	return false;
 }
