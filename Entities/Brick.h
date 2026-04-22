@@ -14,7 +14,7 @@ public:
 	{
 		BrickColor = brickColor;
 	};
-
+	bool ShouldDestroyOnCollision() const override { return true; }
 	void Update(float delta);
 	void Draw();
 

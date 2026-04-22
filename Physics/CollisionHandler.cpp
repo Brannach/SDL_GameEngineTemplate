@@ -1,6 +1,7 @@
 #include "CollisionHandler.h"
 #include "..\Core\Engine.h"
 #include "..\Core\MainApplication.h"
+#include "..\Entities\Actor.h"
 
 using namespace std;
 CollisionHandler::CollisionHandler()
@@ -32,6 +33,7 @@ Vector2d CollisionHandler::GetCollisionValues(SDL_Rect a, SDL_Rect b, Vector2d& 
     // Calculate the depth of collision for both the X and Y axis
     float depthX = diffX > 0 ? minXDist - diffX : -minXDist - diffX;
     float depthY = diffY > 0 ? minYDist - diffY : -minYDist - diffY;
+    
     // Now that you have the depth, you can pick the smaller depth and move
     // along that axis.
     if (depthX != 0 && depthY != 0) {
@@ -60,4 +62,25 @@ BoolPair CollisionHandler::CheckAppWallCollision(SDL_Rect object)
     bool xOverlap = (object.x < 0) || (object.x + object.w > DEFAULT_SCREEN_WIDTH);
     bool yOverlap = (object.y < 0) || (object.y + object.h > Engine::GetInstance().GetGameplayRules()->GetHealthLossLimit());
     return make_tuple(xOverlap, yOverlap);
+}
+
+ActorCollisionResult CollisionHandler::CheckCollisionWithActors(
+    SDL_Rect collider,
+    const std::list<std::unique_ptr<Actor>>& actors,
+    Actor* self)
+{
+    for (const auto& actor : actors)
+    {
+        if (!actor->CanCollide() || actor.get() == self)
+            continue;
+
+        if (!CheckRectCollision(collider, actor->GetCollider().Get()))
+            continue;
+
+        ActorCollisionResult result;
+        result.hitActor = actor.get();
+        result.values = GetCollisionValues(collider, actor->GetCollider().Get(), result.centerDistances);
+        return result;
+    }
+    return {};
 }

@@ -26,9 +26,10 @@ public:
 	virtual void Update(float delta);
 	virtual void Clean();
 	virtual void DrawCollisorBox();
+	virtual bool ShouldDestroyOnCollision() const { return false; }
 	inline RigidBody GetRigidBody() { return ActorRigidBody; }
 	inline Collider GetCollider() { return ActorCollider; }
-
+	
 protected:
 	Collider ActorCollider;
 	RigidBody ActorRigidBody;
