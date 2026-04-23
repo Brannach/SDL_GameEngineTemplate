@@ -37,21 +37,21 @@ void TextureRenderer::Draw(string textureId, SDL_Rect position, SDL_RendererFlip
 	SDL_RenderCopyEx(renderer, TextureMap[textureId], &source, &position, 0, nullptr, flip);
 }
 
-void TextureRenderer::DrawAnimationTile(string tilesetID, int tileSize, int x, int y, int row, int frame, SDL_RendererFlip flip)
+void TextureRenderer::DrawAnimationTile(string tilesetID, int tileSize, int x, int y, int row, int frame, SDL_RendererFlip flip, SDL_Renderer* renderer)
 {
 	SDL_Rect dest = { (int)x, (int)y, tileSize, tileSize };
 	SDL_Rect source = { frame * tileSize, row * tileSize, tileSize, tileSize };
-	SDL_RenderCopyEx(Engine::GetInstance().GetRenderer(), TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
-	SDL_SetRenderDrawColor(Engine::GetInstance().GetRenderer(), 126, 126, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderDrawRect(Engine::GetInstance().GetRenderer(), &dest);
+	SDL_RenderCopyEx(renderer, TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
+	SDL_SetRenderDrawColor(renderer, 126, 126, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(renderer, &dest);
 
 }
 
-void TextureRenderer::DrawTile(string tilesetID, int tileWidth, int tileHeight, int x, int y, SDL_RendererFlip flip)
+void TextureRenderer::DrawTile(string tilesetID, int tileWidth, int tileHeight, int x, int y, SDL_RendererFlip flip, SDL_Renderer* renderer)
 {
 	SDL_Rect dest = { (int)x, (int)y, tileWidth, tileHeight };
 	SDL_Rect source = { 0, 0, tileWidth, tileHeight };
-	SDL_RenderCopyEx(Engine::GetInstance().GetRenderer(), TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
-	SDL_SetRenderDrawColor(Engine::GetInstance().GetRenderer(), 126, 126, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderDrawRect(Engine::GetInstance().GetRenderer(), &dest);
+	SDL_RenderCopyEx(renderer, TextureMap[tilesetID], &source, &dest, 0, nullptr, flip);
+	SDL_SetRenderDrawColor(renderer, 126, 126, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderDrawRect(renderer, &dest);
 }
