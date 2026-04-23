@@ -65,7 +65,7 @@ void TileLayer::Render()
 			TextureRenderer::GetInstance().DrawAnimationTile(
 				tileSet.Name, tileSet.TileSize,
 				col * tileSet.TileWidth, row * tileSet.TileHeight,
-				tileRow, tileCol, SDL_FLIP_NONE);
+				tileRow, tileCol, SDL_FLIP_NONE, Engine::GetInstance().GetRenderer());
 		}
 	}
 }
