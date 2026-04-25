@@ -25,4 +25,5 @@ private:
     std::string mMapFile;
     std::unique_ptr<GameMap> mMap;
     std::list<std::unique_ptr<Actor>> mActors;
+    int brickCounter;
 };

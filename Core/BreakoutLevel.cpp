@@ -22,12 +22,19 @@ void BreakoutLevel::Load()
 
     mMap = MapParser::GetInstance().Load(mMapId, mMapFile);
 
+    brickCounter = 0;
     for (auto& actor : mMap->SpawnActors())
+    {
+        if (dynamic_cast<Brick*>(actor.get()) != nullptr)
+            brickCounter++;
         mActors.push_back(move(actor));
+    }
+        
 }
 
 void BreakoutLevel::Unload()
 {
+    brickCounter = 0;
     mActors.clear();
     mMap.reset();
 }
@@ -47,10 +54,7 @@ void BreakoutLevel::Render()
 
 bool BreakoutLevel::IsComplete()
 {
-    for (const auto& actor : mActors)
-        if (dynamic_cast<Brick*>(actor.get()) != nullptr)
-            return false;
-    return true;
+    return brickCounter == 0;
 }
 
 const std::list<std::unique_ptr<Actor>>& BreakoutLevel::GetActors()
@@ -65,5 +69,7 @@ void BreakoutLevel::AddActor(std::unique_ptr<Actor> actor)
 
 void BreakoutLevel::RemoveActor(Actor* actor)
 {
+    if (dynamic_cast<Brick*>(actor) != nullptr)
+        brickCounter--;
     erase_if(mActors, [actor](const std::unique_ptr<Actor>& a) { return a.get() == actor; });
 }
